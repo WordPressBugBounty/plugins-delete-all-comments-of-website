@@ -4,7 +4,7 @@
     Plugin URI: http://www.navneetsoni.com/plugins/delete-comments
     Description: Plugin to delete all comments of wordpress website (Approved, Pending, Spam)
     Author: Navneet Soni
-    Version: 5.5
+    Version: 5.6
     Author URI: http://www.navneetsoni.com 
     */
 	
@@ -15,19 +15,20 @@ if ( ! function_exists( 'nonu_fs' ) ) {
 
         if ( ! isset( $nonu_fs ) ) {
             // Include Freemius SDK.
-            require_once dirname(__FILE__) . '/freemius/start.php';
-
+            require_once dirname( __FILE__ ) . '/freemius/start.php';
             $nonu_fs = fs_dynamic_init( array(
                 'id'                  => '7346',
                 'slug'                => 'delete-all-comments-of-website',
                 'type'                => 'plugin',
                 'public_key'          => 'pk_3b87748f4797c99614f13caffb811',
-                'is_premium'          => false,
+                'is_premium'          => true,
+                'premium_suffix'      => 'Plus',
+                // If your plugin is a serviceware, set this option to false.
+                'has_premium_version' => true,
                 'has_addons'          => false,
-                'has_paid_plans'      => false,
+                'has_paid_plans'      => true,
                 'menu'                => array(
                     'slug'           => 'delete_comment',
-                    'account'        => false,
                     'support'        => false,
                     'parent'         => array(
                         'slug' => 'tools.php',
