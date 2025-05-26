@@ -1,57 +1,164 @@
 === Delete All Comments of WordPress ===
-Contributors: royalnavneet
-Author URI: http://www.navneetsoni.com
-Donate link: https://bit.ly/2Zxgaq8
-Tags: delete all comments, delete comments, remove comments, Delete spam, moderation
-Requires at least: 3.8
-Tested up to: 6.8
-Stable tag: 5.8
-License: GPLv2 or later 
+Contributors: navneetsoni
+Tags: delete comments, delete all comments, delete spam comments, delete pending comments, delete approved comments, bulk delete comments, comment management
+Requires at least: 5.0
+Tested up to: 6.8.1
+Stable tag: 6.0
+License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Delete all comments from your WordPress database (Approved, Pending, Spam, Trash) with a single click.
+Delete all comments of your WordPress website with ease. Manage and clean up your comments efficiently.
 
 == Description ==
 
-The "Delete All Comments of WordPress" plugin allows administrators to remove all comments from their WordPress website in one click — including approved, pending, spam, and trashed comments.
+Delete All Comments of WordPress is a powerful plugin that helps you manage and clean up comments on your WordPress website. With both free and premium features, this plugin provides a comprehensive solution for comment management.
 
-Use this plugin under:
+= Key Features =
 
-**Tools > Delete Comments**
+* Delete all types of comments (Approved, Pending, Spam, Trash)
+* Export comments to CSV (Premium)
+* Smart date filtering (Premium)
+* Automatic spam cleanup (Premium)
+* Unlimited comment deletion (Premium)
+* Priority support (Premium)
+
+
+* Basic comment management
+* User-friendly interface
+* Safe and secure deletion
+
+
+
+* **Unlimited Comment Deletion**
+  * Remove as many comments as you need
+  * No restrictions on comment count
+  * Perfect for large websites
+
+* **Smart Date Filtering**
+  * Delete comments within specific date ranges
+  * Filter by start and end dates
+  * Precise comment management
+
+* **Export to CSV**
+  * Backup comments before deletion
+  * Export all comment types
+  * Includes comment metadata
+  * Download in CSV format
+
+* **Automatic Spam Cleanup**
+  * Schedule automatic spam removal
+  * Choose frequency (daily/weekly/monthly)
+  * Set and forget functionality
+  * Email notifications of cleanup
+
+* **Priority Support**
+  * Direct email support
+  * Quick response times
+  * Technical assistance
+  * Feature requests consideration
+
+= Additional Premium Benefits =
+
+* **One-Time Payment**
+  * $9.99 USD lifetime access
+  * No recurring fees
+  * Free updates forever
+  * 30-day money-back guarantee
+
+
+* **Advanced Features**
+  * Bulk comment management
+  * Advanced filtering options
+  * Comment statistics
+  * Performance optimization
+  * Cache management
+
+* **Security Features**
+  * Secure deletion process
+  * Data backup options
+  * Safe comment removal
+  * Database optimization
+
+= Premium Support =
+
+* Direct email support at info@lytechx.com
+* Priority response time
+* Technical assistance
+* Feature request consideration
+* Regular updates and improvements
 
 == Installation ==
 
-1. Go to Plugins > Add New > Upload > Select 'delete-all-comments-of-wordpress-website.zip' > Install Now
-2. Or unzip and upload 'delete-all-comments-of-wordpress-website' to the '/wp-content/plugins/' directory.
-3. Activate the plugin via the 'Plugins' menu.
-4. Go to **Tools > Delete Comments** to use the plugin.
+1. Upload the plugin files to the `/wp-content/plugins/delete-all-comments-of-website` directory, or install the plugin through the WordPress plugins screen directly.
+2. Activate the plugin through the 'Plugins' screen in WordPress
+3. Use the Tools->Delete Comments screen to manage your comments
 
 == Frequently Asked Questions ==
 
-= What about support? =
-Create a support ticket on the WordPress.org support forum, and I’ll take care of it.
+= How many comments can I delete with the free version? =
+
+The free version allows you to delete up to 500 comments. For unlimited deletion, please upgrade to the premium version.
+
+= Is the premium version a one-time payment? =
+
+Yes, the premium version is a one-time payment of $9.99 USD with lifetime access and updates.
+
+= Can I export my comments before deleting them? =
+
+Yes, the premium version includes a feature to export your comments to CSV format before deletion.
+
+= How does the automatic spam cleanup work? =
+
+The premium version includes an automatic spam cleanup feature that can be scheduled to run daily, weekly, or monthly. It automatically removes spam comments based on your selected schedule.
 
 == Screenshots ==
 
-1. Tools > Delete Comments - Main screen
-2. Confirmation screen for deleting comments
-3. Comment stats panel
-4. Success messages
-5. Supporter images
+1. Main plugin interface
+2. Comment deletion options
+3. Export functionality
+4. Automatic spam cleanup settings
 
 == Changelog ==
 
-= 5.8 = Changed support link.
-= 5.7 = Added new supporter images and updated support link.
-= 5.6 = Bug fix: Prevents deletion of WooCommerce order notes.
-= 5.5 = Minor bug fix.
-= 5.4 = Added banner.
-= 5.1 = SDK update and UI improvements.
-= 4.3 = Added new options.
-= 3.0 = Stability improvements and bug fixes.
-= 1.0 = Initial release.
+= 5.9 =
+* Updated version number
+* Improved stability and performance
+* Enhanced user experience
+
+= 5.7 =
+* Fixed automatic spam cleanup functionality
+* Added proper scheduling for daily, weekly, and monthly cleanup
+* Improved cache clearing after deletion
+* Enhanced error handling and logging
+* Added development services promotion for premium users
+
+= 5.6 =
+* Added automatic spam cleanup feature
+* Improved export functionality
+* Enhanced user interface
+* Fixed various bugs and improvements
+
+= 5.5 =
+* Added date range filtering
+* Improved comment counting
+* Enhanced error handling
+* Fixed various bugs
 
 == Upgrade Notice ==
 
-= 5.8 =
-Bug fix and support link update. Prevents WooCommerce order notes from being deleted.
+= 5.9 =
+This update includes general improvements and enhanced stability. We recommend all users to update to this version.
+
+== Privacy Policy ==
+
+This plugin does not collect any personal data. All operations are performed locally on your WordPress installation.
+
+== Development Services ==
+
+Premium users can access our WordPress development services at $5 USD per hour. Services include:
+* Custom WordPress Development
+* Plugin Development & Customization
+* Theme Development & Customization
+* Performance Optimization
+
+Contact us at info@lytechx.com for development inquiries.
