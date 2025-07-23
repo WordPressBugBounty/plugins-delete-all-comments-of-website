@@ -1,10 +1,10 @@
 <?php
     /*
-    Plugin Name: Delete Comments & Disable Comments – Ultimate Comment Manager
+    Plugin Name: WP Comment Cleaner – Delete All Comments, Disable Comments, Bulk Delete & Remove Comments
     Plugin URI: http://www.navneetsoni.com/plugins/delete-comments
-    Description: A complete comment management plugin for WordPress. Bulk delete approved, pending, spam, or trashed comments. Disable comments globally or by post type, apply role-based exclusions, and automate spam cleanup.
-    Author: Navneet Soni
-    Version: 6.1
+    Description: A complete WordPress comment management plugin to delete comments, disable comments, bulk delete comments, remove comments, and delete all comments in one click. Easily manage approved, pending, spam, or trashed comments. Disable comments globally or by post type, apply role-based exclusions, export comments, and automate spam cleanup with scheduled deletion.
+    Author: royalnavneet
+    Version: 6.2
     Author URI: http://www.navneetsoni.com 
     */
 	
@@ -714,65 +714,54 @@ add_filter('pings_open', 'nav_disable_comments', 20, 2);
 
 if( !function_exists("nav_delete_all_comment") )
 {
-function nav_delete_all_comment(){
+function nav_delete_all_comment() {
     global $wpdb;
-    
-    if(isset($_POST['nav_delete_comment']) && isset($_POST['nav@final_delete']) && wp_verify_nonce($_POST['nav@final_delete'], 'nav@final_delete')) {
-        $favcolor_nav = $_POST['nav_delete_comment'];
-        $count = 0;
-        
-        // Get count before deletion
-        switch($favcolor_nav) {
-            case 'nav_delete_all':
-                $count = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->comments WHERE comment_type = 'comment'");
-                break;
-            case 'nav_delete_moderation':
-                $count = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->comments WHERE comment_approved = '0' AND comment_type = 'comment'");
-                break;
-            case 'nav_delete_approved':
-                $count = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->comments WHERE comment_approved = '1' AND comment_type = 'comment'");
-                break;
-            case 'nav_delete_spam':
-                $count = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->comments WHERE comment_approved = 'spam' AND comment_type = 'comment'");
-                break;
-            case 'nav_delete_trash':
-                $count = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->comments WHERE comment_approved = 'trash' AND comment_type = 'comment'");
-                break;
+
+    $count = 0;
+    $favcolor_nav = isset($_POST['nav_delete_comment']) ? $_POST['nav_delete_comment'] : '';
+    $date_filter = '';
+
+    // Apply date range only for paid users
+    if (nonu_fs()->is_paying()) {
+        $date_from = isset($_POST['nav_delete_commentfrom']) ? sanitize_text_field($_POST['nav_delete_commentfrom']) : '';
+        $date_to = isset($_POST['nav_delete_commentto']) ? sanitize_text_field($_POST['nav_delete_commentto']) : '';
+
+        if ($date_from && $date_to) {
+            $from = date('Y-m-d 00:00:00', strtotime($date_from));
+            $to = date('Y-m-d 23:59:59', strtotime($date_to));
+            $date_filter = $wpdb->prepare(" AND comment_date BETWEEN %s AND %s", $from, $to);
         }
-        
-        // Check if there are comments to delete
-        if ($count <= 0) {
-            return 0;
-        }
-        
-        // Proceed with deletion
-        switch($favcolor_nav) {
-            case 'nav_delete_all':
-                $wpdb->query("DELETE FROM $wpdb->comments WHERE comment_type = 'comment'");
-                break;
-            case 'nav_delete_moderation':
-                $wpdb->query("DELETE FROM $wpdb->comments WHERE comment_approved = '0' AND comment_type = 'comment'");
-                break;
-            case 'nav_delete_approved':
-                $wpdb->query("DELETE FROM $wpdb->comments WHERE comment_approved = '1' AND comment_type = 'comment'");
-                break;
-            case 'nav_delete_spam':
-                $wpdb->query("DELETE FROM $wpdb->comments WHERE comment_approved = 'spam' AND comment_type = 'comment'");
-                break;
-            case 'nav_delete_trash':
-                $wpdb->query("DELETE FROM $wpdb->comments WHERE comment_approved = 'trash' AND comment_type = 'comment'");
-                break;
-        }
-        
-        // Update deleted comments count
-        if ($count > 0) {
-            nav_update_deleted_comments_count($count);
-            nav_clear_comment_caches();
-        }
-        
-        return $count;
     }
-    return 0;
+
+    switch($favcolor_nav) {
+        case 'nav_delete_all':
+            $count = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->comments WHERE comment_type = 'comment' $date_filter");
+            $wpdb->query("DELETE FROM $wpdb->comments WHERE comment_type = 'comment' $date_filter");
+            break;
+        case 'nav_delete_moderation':
+            $count = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->comments WHERE comment_approved = '0' AND comment_type = 'comment' $date_filter");
+            $wpdb->query("DELETE FROM $wpdb->comments WHERE comment_approved = '0' AND comment_type = 'comment' $date_filter");
+            break;
+        case 'nav_delete_approved':
+            $count = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->comments WHERE comment_approved = '1' AND comment_type = 'comment' $date_filter");
+            $wpdb->query("DELETE FROM $wpdb->comments WHERE comment_approved = '1' AND comment_type = 'comment' $date_filter");
+            break;
+        case 'nav_delete_spam':
+            $count = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->comments WHERE comment_approved = 'spam' AND comment_type = 'comment' $date_filter");
+            $wpdb->query("DELETE FROM $wpdb->comments WHERE comment_approved = 'spam' AND comment_type = 'comment' $date_filter");
+            break;
+        case 'nav_delete_trash':
+            $count = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->comments WHERE comment_approved = 'trash' AND comment_type = 'comment' $date_filter");
+            $wpdb->query("DELETE FROM $wpdb->comments WHERE comment_approved = 'trash' AND comment_type = 'comment' $date_filter");
+            break;
+    }
+
+    if ($count > 0) {
+        nav_update_deleted_comments_count($count);
+        nav_clear_comment_caches();
+    }
+
+    return $count;
 }
 }
  
@@ -1167,6 +1156,15 @@ add_action('wp_ajax_nav_delete_comments_ajax', 'nav_handle_delete_ajax');
 
 // Add AJAX handler for delete action
 function nav_handle_delete_ajax() {
+    
+    if (!nonu_fs()->is_paying() && !nav_can_delete_more_comments()) {
+    wp_send_json_error(array(
+        'message' => 'Free plan limit reached. You can only delete up to 500 comments. Upgrade to Premium for unlimited access.'
+    ));
+    return;
+    }
+    
+    
     // Check if user has proper permissions
     if (!current_user_can('manage_options')) {
         wp_send_json_error(array(

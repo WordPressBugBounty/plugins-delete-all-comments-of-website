@@ -204,12 +204,18 @@ jQuery(document).ready(function($) {
             }
         }
         
-        var commentCount = $("input[name='nav_delete_comment']:checked").closest("label").find(".comment-count").text();
-        
-        // Check if there are any comments to delete
-        if (commentCount.includes("0 comments")) {
+      //  var commentCount = $("input[name='nav_delete_comment']:checked").closest("label").find(".comment-count").text();
+  var commentCountText = $("input[name='nav_delete_comment']:checked").closest("label").find(".comment-count").text().trim().toLowerCase();
+
+// Extract number from string (e.g., "0 comments" => 0)
+var match = commentCountText.match(/[\d,]+/);
+var commentCount = match ? parseInt(match[0].replace(/,/g, ""), 10) : 0;
+
+// Check if count is 0
+if (commentCount === 0) {
+  
             Swal.fire({
-                title: "No Comments",
+                title: 'No comments',
                 text: "There are no comments to delete for the selected type.",
                 icon: "info",
                 confirmButtonColor: "#3b82f6"
@@ -240,7 +246,7 @@ jQuery(document).ready(function($) {
                     }
                     throw new Error(response.data?.message || "Failed to delete comments");
                 }).catch(function(error) {
-                    Swal.showValidationMessage("Request failed: ${error.message || error}");
+                    Swal.showValidationMessage(`Request failed: ${error.message || error}`);
                 });
             },
             allowOutsideClick: () => !Swal.isLoading()
