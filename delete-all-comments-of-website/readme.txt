@@ -2,8 +2,8 @@
 Contributors: royalnavneet  
 Tags: delete comments, disable comments, bulk delete comments, remove comments, delete all comments  
 Requires at least: 5.0  
-Tested up to: 6.8.1  
-Stable tag: 6.2  
+Tested up to: 6.8.2  
+Stable tag: 6.3  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html  
 

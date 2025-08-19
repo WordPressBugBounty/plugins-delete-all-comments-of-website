@@ -4,7 +4,7 @@
     Plugin URI: http://www.navneetsoni.com/plugins/delete-comments
     Description: A complete WordPress comment management plugin to delete comments, disable comments, bulk delete comments, remove comments, and delete all comments in one click. Easily manage approved, pending, spam, or trashed comments. Disable comments globally or by post type, apply role-based exclusions, export comments, and automate spam cleanup with scheduled deletion.
     Author: royalnavneet
-    Version: 6.2
+    Version: 6.3
     Author URI: http://www.navneetsoni.com 
     */
 	
@@ -486,7 +486,7 @@ function nav_disable_comments_settings() {
 
         <div style="background: #2271b1; color: white; padding: 15px; border-radius: 6px; text-align: center; margin: 15px 0;">
             <div style="font-size: 28px; font-weight: bold;">$9.99</div>
-            <div style="font-size: 14px; opacity: 0.9;">One-time payment, lifetime access</div>
+            <div style="font-size: 14px; opacity: 0.9;">At cost of one Beer</div>
         </div>
 
         <ul style="list-style: none; padding-left: 0; margin: 20px 0; border-top: 1px solid #eee; border-bottom: 1px solid #eee; padding: 15px 0;">
@@ -1519,7 +1519,7 @@ function nav_delete_comment(){
 
         <div style="background: #2271b1; color: white; padding: 15px; border-radius: 6px; text-align: center; margin: 15px 0;">
             <div style="font-size: 28px; font-weight: bold;">$9.99</div>
-            <div style="font-size: 14px; opacity: 0.9;">One-time payment, lifetime access</div>
+            <div style="font-size: 14px; opacity: 0.9;">At cost of one Beer</div>
         </div>
 
         <ul style="list-style: none; padding-left: 0; margin: 20px 0; border-top: 1px solid #eee; border-bottom: 1px solid #eee; padding: 15px 0;">
