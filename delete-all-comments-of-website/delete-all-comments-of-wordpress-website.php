@@ -4,7 +4,7 @@
     Plugin URI: http://www.navneetsoni.com/plugins/delete-comments
     Description: A complete WordPress comment management plugin to delete comments, disable comments, bulk delete comments, remove comments, and delete all comments in one click. Easily manage approved, pending, spam, or trashed comments. Disable comments globally or by post type, apply role-based exclusions, export comments, and automate spam cleanup with scheduled deletion.
     Author: royalnavneet
-    Version: 6.4
+    Version: 6.5
     Author URI: http://www.navneetsoni.com 
     */
 	
@@ -482,11 +482,11 @@ function nav_disable_comments_settings() {
                             <div class="handlediv" title="Click to toggle"><br></div>
                           <div class="inside">
     <div style="background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%); padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-        <h4 style="color: #2271b1; margin-top: 0; font-size: 20px; text-align: center;">✨ Ultimate Comment Management</h4>
+        <h4 style="color: #2271b1; margin-top: 0; font-size: 20px; text-align: center;">🐾 Pawcause – 100% goes to Dog Charity</h4>
 
         <div style="background: #2271b1; color: white; padding: 15px; border-radius: 6px; text-align: center; margin: 15px 0;">
             <div style="font-size: 28px; font-weight: bold;">$0.83</div>
-            <div style="font-size: 14px; opacity: 0.9;">For less than the cost of a beer — unlock powerful features!</div>
+            <div style="font-size: 14px; opacity: 0.9;">🐶 100% of your upgrade goes directly to supporting dog charities.</div>
         </div>
 
         <ul style="list-style: none; padding-left: 0; margin: 20px 0; border-top: 1px solid #eee; border-bottom: 1px solid #eee; padding: 15px 0;">
@@ -1515,11 +1515,11 @@ function nav_delete_comment(){
                                 
                               <div class="inside">
     <div style="background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%); padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-        <h4 style="color: #2271b1; margin-top: 0; font-size: 20px; text-align: center;">✨ Ultimate Comment Management</h4>
+        <h4 style="color: #2271b1; margin-top: 0; font-size: 20px; text-align: center;">🐾 Pawcause – 100% goes to Dog Charity</h4>
 
         <div style="background: #2271b1; color: white; padding: 15px; border-radius: 6px; text-align: center; margin: 15px 0;">
             <div style="font-size: 28px; font-weight: bold;">$0.83</div>
-            <div style="font-size: 14px; opacity: 0.9;">For less than the cost of a beer — unlock powerful features!</div>
+            <div style="font-size: 14px; opacity: 0.9;">🐶 100% of your upgrade goes directly to supporting dog charities.</div>
         </div>
 
         <ul style="list-style: none; padding-left: 0; margin: 20px 0; border-top: 1px solid #eee; border-bottom: 1px solid #eee; padding: 15px 0;">
