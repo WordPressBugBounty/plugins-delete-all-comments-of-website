@@ -4,7 +4,7 @@
     Plugin URI: http://www.navneetsoni.com/plugins/delete-comments
     Description: A complete WordPress comment management plugin to delete comments, disable comments, bulk delete comments, remove comments, and delete all comments in one click. Easily manage approved, pending, spam, or trashed comments. Disable comments globally or by post type, apply role-based exclusions, export comments, and automate spam cleanup with scheduled deletion.
     Author: royalnavneet
-    Version: 6.5
+    Version: 6.7
     Author URI: http://www.navneetsoni.com 
     */
 	
