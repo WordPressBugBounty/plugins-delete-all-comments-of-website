@@ -4,7 +4,7 @@ Tags: delete comments, disable comments, bulk delete, remove comments, delete al
 Requires at least: 5.0
 Tested up to: 6.9
 Requires PHP: 7.2
-Stable tag: 6.7
+Stable tag: 6.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,10 +37,14 @@ While the free version is powerful enough to **delete all comments**, our Premiu
 
 1. Upload the plugin files to the `/wp-content/plugins/wp-comment-cleaner` directory.
 2. Activate the plugin through the 'Plugins' screen in WordPress.
-3. Navigate to **Tools -> Delete Comments** to access the dashboard.
+3. In the WordPress admin, click **Delete Comments** in the main menu (it appears just after **Comments**) to access the dashboard.
 4. Select your criteria (status, post type, or date) and click to **remove comments**.
 
+
 == Frequently Asked Questions ==
+
+= How do I use this plugin in my language? =
+Set your site language in **Settings → General** (Site Language). If you installed the plugin from WordPress.org, translations for this plugin will be installed automatically when they are available for your language. The plugin interface will then appear in your language.
 
 = Can I use this to remove comments on specific posts only? =
 Yes! You can filter by post type or comment status to ensure you only **remove comments** that are no longer needed while keeping your valuable discussions.

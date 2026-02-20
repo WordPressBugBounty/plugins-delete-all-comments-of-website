@@ -1,0 +1,123 @@
+# Indonesian - Delete All Comments of Website
+msgid ""
+msgstr ""
+"Project-Id-Version: Delete All Comments of Website 6.7\n"
+"Language: id_ID\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Delete Comments"
+msgstr "Hapus komentar"
+
+msgid "Disable Comments"
+msgstr "Nonaktifkan komentar"
+
+msgid "Delete All Comments"
+msgstr "Hapus semua komentar"
+
+msgid "Delete & Disable Comments"
+msgstr "Hapus & nonaktifkan komentar"
+
+msgid "Global Settings"
+msgstr "Pengaturan global"
+
+msgid "Premium"
+msgstr "Premium"
+
+msgid "Save Settings"
+msgstr "Simpan pengaturan"
+
+msgid "Reset All Settings"
+msgstr "Atur ulang semua pengaturan"
+
+msgid "Yes, reset settings"
+msgstr "Ya, atur ulang"
+
+msgid "No, cancel"
+msgstr "Tidak, batal"
+
+msgid "All Comments"
+msgstr "Semua komentar"
+
+msgid "comments"
+msgstr "komentar"
+
+msgid "From Date"
+msgstr "Dari tanggal"
+
+msgid "To Date"
+msgstr "Sampai tanggal"
+
+msgid "Export Comments"
+msgstr "Ekspor komentar"
+
+msgid "Never"
+msgstr "Tidak pernah"
+
+msgid "Not scheduled"
+msgstr "Tidak dijadwalkan"
+
+msgid "Success!"
+msgstr "Berhasil!"
+
+msgid "Error!"
+msgstr "Kesalahan!"
+
+msgid "Saving..."
+msgstr "Menyimpan..."
+
+msgid "Comment ID"
+msgstr "ID komentar"
+
+msgid "Post ID"
+msgstr "ID posting"
+
+msgid "Author"
+msgstr "Penulis"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Pending"
+msgstr "Tertunda"
+
+msgid "Approved"
+msgstr "Disetujui"
+
+msgid "Spam"
+msgstr "Spam"
+
+msgid "Trash"
+msgstr "Tempat sampah"
+
+msgid "Once Weekly"
+msgstr "Sekali seminggu"
+
+msgid "Once Monthly"
+msgstr "Sekali sebulan"
+
+msgid "You do not have sufficient permissions to perform this action."
+msgstr "Anda tidak memiliki izin yang cukup untuk tindakan ini."
+
+msgid "Security check failed. Please refresh the page and try again."
+msgstr "Pemeriksaan keamanan gagal. Segarkan halaman dan coba lagi."
+
+msgid "Successfully deleted %d comments."
+msgstr "Berhasil menghapus %d komentar."
+
+msgid "No comments were deleted."
+msgstr "Tidak ada komentar yang dihapus."
+
+msgid "No comments found for the selected criteria"
+msgstr "Tidak ada komentar untuk kriteria yang dipilih"
+
+msgid "No comments found in this batch."
+msgstr "Tidak ada komentar dalam batch ini."
+
+msgid "Import feature is only available in the premium version"
+msgstr "Fitur impor hanya tersedia di versi premium"
+
+msgid "Export feature is only available in the premium version"
+msgstr "Fitur ekspor hanya tersedia di versi premium"

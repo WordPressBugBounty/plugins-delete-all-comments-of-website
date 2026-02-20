@@ -1,0 +1,462 @@
+# Spanish (Spain) translation for Delete All Comments of Website
+msgid ""
+msgstr ""
+"Project-Id-Version: Delete All Comments of Website 6.7\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-18 12:00+0000\n"
+"PO-Revision-Date: 2025-02-18 12:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Spanish (Spain)\n"
+"Language: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: \n"
+
+msgid "Delete Comments"
+msgstr "Eliminar comentarios"
+
+msgid "Disable Comments"
+msgstr "Desactivar comentarios"
+
+msgid "Delete All Comments"
+msgstr "Eliminar todos los comentarios"
+
+msgid "Delete & Disable Comments"
+msgstr "Eliminar y desactivar comentarios"
+
+msgid "Global Settings"
+msgstr "Ajustes globales"
+
+msgid "Warning: Disabling comments will prevent users from commenting on your website."
+msgstr "Aviso: Desactivar comentarios impedirá que los usuarios comenten en tu sitio."
+
+msgid "Disable comments everywhere"
+msgstr "Desactivar comentarios en todas partes"
+
+msgid "Disable comments on specific post types"
+msgstr "Desactivar comentarios en tipos de entrada específicos"
+
+msgid "Upgrade to Premium to enable this feature"
+msgstr "Actualiza a Premium para activar esta función"
+
+msgid "Premium"
+msgstr "Premium"
+
+msgid "Role-Based Exclusions"
+msgstr "Exclusiones por rol"
+
+msgid "Enable role-based exclusions to allow specific user roles to comment even when comments are disabled."
+msgstr "Activa exclusiones por rol para permitir que ciertos roles comenten aunque los comentarios estén desactivados."
+
+msgid "Enable Role-Based Exclusions"
+msgstr "Activar exclusiones por rol"
+
+msgid "Avatar Settings"
+msgstr "Ajustes de avatar"
+
+msgid "Show Avatars in Comments"
+msgstr "Mostrar avatares en comentarios"
+
+msgid "API Settings"
+msgstr "Ajustes de API"
+
+msgid "Disable Comments via REST API"
+msgstr "Desactivar comentarios vía REST API"
+
+msgid "Save Settings"
+msgstr "Guardar ajustes"
+
+msgid "Reset All Settings"
+msgstr "Restablecer todos los ajustes"
+
+msgid "Reset Settings?"
+msgstr "¿Restablecer ajustes?"
+
+msgid "Are you sure you want to reset all comment settings? This will enable comments everywhere and remove all restrictions."
+msgstr "¿Seguro que quieres restablecer todos los ajustes de comentarios? Se activarán los comentarios en todas partes y se eliminarán las restricciones."
+
+msgid "Yes, reset settings"
+msgstr "Sí, restablecer ajustes"
+
+msgid "No, cancel"
+msgstr "No, cancelar"
+
+msgid "Settings have been reset successfully."
+msgstr "Los ajustes se han restablecido correctamente."
+
+msgid "You can delete up to 500 comments."
+msgstr "Puedes eliminar hasta 500 comentarios."
+
+msgid "comments remaining in your free plan."
+msgstr "comentarios restantes en tu plan gratuito."
+
+msgid "Upgrade to Premium"
+msgstr "Actualizar a Premium"
+
+msgid "Warning: Irreversible Action (Deleted comments cannot be recovered. Please make sure to export your comments before deletion if needed.)"
+msgstr "Aviso: Acción irreversible (los comentarios eliminados no se pueden recuperar. Exporta tus comentarios antes de eliminarlos si los necesitas.)"
+
+msgid "All Comments"
+msgstr "Todos los comentarios"
+
+msgid "comments"
+msgstr "comentarios"
+
+msgid "Delete all comments from your website"
+msgstr "Eliminar todos los comentarios de tu sitio"
+
+msgid "Comments in Moderation"
+msgstr "Comentarios en moderación"
+
+msgid "Delete all comments marked as moderation"
+msgstr "Eliminar todos los comentarios en moderación"
+
+msgid "Approved Comments"
+msgstr "Comentarios aprobados"
+
+msgid "Delete all approved comments"
+msgstr "Eliminar todos los comentarios aprobados"
+
+msgid "Spam Comments"
+msgstr "Comentarios spam"
+
+msgid "Delete all spam comments"
+msgstr "Eliminar todos los comentarios spam"
+
+msgid "Trash Comments"
+msgstr "Comentarios en la papelera"
+
+msgid "Delete all comments in trash"
+msgstr "Eliminar todos los comentarios en la papelera"
+
+msgid "Date Range Filter"
+msgstr "Filtro por rango de fechas"
+
+msgid "Select a date range to delete comments from a specific period"
+msgstr "Selecciona un rango de fechas para eliminar comentarios de un periodo concreto"
+
+msgid "From Date"
+msgstr "Desde fecha"
+
+msgid "To Date"
+msgstr "Hasta fecha"
+
+msgid "Date Range Error:"
+msgstr "Error de rango de fechas:"
+
+msgid "Date range filtering is available in the premium plan"
+msgstr "El filtrado por fechas está disponible en el plan premium"
+
+msgid "Upgrade"
+msgstr "Actualizar"
+
+msgid "Delete Selected Comments"
+msgstr "Eliminar comentarios seleccionados"
+
+msgid "Export your comments as CSV"
+msgstr "Exportar tus comentarios como CSV"
+
+msgid "Export Comments"
+msgstr "Exportar comentarios"
+
+msgid "Available in Premium version"
+msgstr "Disponible en la versión Premium"
+
+msgid "Export Comments (Premium)"
+msgstr "Exportar comentarios (Premium)"
+
+msgid "Automatic Spam Cleanup"
+msgstr "Limpieza automática de spam"
+
+msgid "Premium Feature"
+msgstr "Función Premium"
+
+msgid "Automatically clean up spam comments on a schedule."
+msgstr "Elimina automáticamente comentarios spam según una programación."
+
+msgid "Auto-delete Spam:"
+msgstr "Eliminar spam automáticamente:"
+
+msgid "Disabled"
+msgstr "Desactivado"
+
+msgid "Daily"
+msgstr "Diario"
+
+msgid "Weekly"
+msgstr "Semanal"
+
+msgid "Monthly"
+msgstr "Mensual"
+
+msgid "Schedule Now"
+msgstr "Programar ahora"
+
+msgid "Cancel Schedule"
+msgstr "Cancelar programación"
+
+msgid "Last Cleanup:"
+msgstr "Última limpieza:"
+
+msgid "Next Cleanup:"
+msgstr "Próxima limpieza:"
+
+msgid "Never"
+msgstr "Nunca"
+
+msgid "Not scheduled"
+msgstr "No programado"
+
+msgid "Comments Overview"
+msgstr "Resumen de comentarios"
+
+msgid "Total Comments:"
+msgstr "Total de comentarios:"
+
+msgid "In Moderation:"
+msgstr "En moderación:"
+
+msgid "Approved:"
+msgstr "Aprobados:"
+
+msgid "Spam:"
+msgstr "Spam:"
+
+msgid "In Trash:"
+msgstr "En papelera:"
+
+msgid "Upgrade Now - Get Premium Access"
+msgstr "Actualiza ahora: acceso Premium"
+
+msgid "30-day money-back guarantee"
+msgstr "Garantía de devolución de 30 días"
+
+msgid "Once Weekly"
+msgstr "Una vez por semana"
+
+msgid "Once Monthly"
+msgstr "Una vez al mes"
+
+msgid "Settings saved successfully."
+msgstr "Ajustes guardados correctamente."
+
+msgid "You do not have sufficient permissions to perform this action."
+msgstr "No tienes permisos suficientes para realizar esta acción."
+
+msgid "Security check failed. Please refresh the page and try again."
+msgstr "Comprobación de seguridad fallida. Actualiza la página e inténtalo de nuevo."
+
+msgid "Successfully deleted %d comments."
+msgstr "Se han eliminado %d comentarios correctamente."
+
+msgid "No comments were deleted."
+msgstr "No se eliminó ningún comentario."
+
+msgid "Comment ID"
+msgstr "ID de comentario"
+
+msgid "Post ID"
+msgstr "ID de entrada"
+
+msgid "Author"
+msgstr "Autor"
+
+msgid "Email"
+msgstr "Correo electrónico"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Comment"
+msgstr "Comentario"
+
+msgid "Date"
+msgstr "Fecha"
+
+msgid "Status"
+msgstr "Estado"
+
+msgid "Pending"
+msgstr "Pendiente"
+
+msgid "Approved"
+msgstr "Aprobado"
+
+msgid "Spam"
+msgstr "Spam"
+
+msgid "Trash"
+msgstr "Papelera"
+
+msgid "Saving..."
+msgstr "Guardando..."
+
+msgid "Success!"
+msgstr "¡Correcto!"
+
+msgid "Settings have been saved successfully."
+msgstr "Los ajustes se han guardado correctamente."
+
+msgid "Error!"
+msgstr "¡Error!"
+
+msgid "Failed to save settings."
+msgstr "Error al guardar los ajustes."
+
+msgid "Failed to reset settings"
+msgstr "Error al restablecer los ajustes"
+
+msgid "Free Plan Limit Reached!"
+msgstr "¡Límite del plan gratuito alcanzado!"
+
+msgid "You can only delete up to 500 comments in the free plan."
+msgstr "En el plan gratuito solo puedes eliminar hasta 500 comentarios."
+
+msgid "to delete unlimited comments and get additional features like date range selection!"
+msgstr "para eliminar comentarios sin límite y obtener funciones como el filtro por fechas."
+
+msgid "You do not have sufficient permissions to access this page."
+msgstr "No tienes permisos suficientes para acceder a esta página."
+
+msgid "Sorry, you are not allowed to access this page."
+msgstr "No tienes permiso para acceder a esta página."
+
+msgid "Comments are disabled via REST API."
+msgstr "Los comentarios están desactivados vía REST API."
+
+msgid "Start date cannot be later than end date"
+msgstr "La fecha de inicio no puede ser posterior a la de fin"
+
+msgid "Cannot select future dates"
+msgstr "No se pueden seleccionar fechas futuras"
+
+msgid "Automatic spam cleanup schedule has been cancelled."
+msgstr "Se ha cancelado la programación de limpieza automática de spam."
+
+msgid "Automatic spam cleanup has been scheduled to run %s."
+msgstr "La limpieza automática de spam se ha programado para ejecutarse %s."
+
+msgid "Automatic spam cleanup has been disabled."
+msgstr "Se ha desactivado la limpieza automática de spam."
+
+msgid "Unlimited Comments"
+msgstr "Comentarios ilimitados"
+
+msgid "Delete as many comments as you need"
+msgstr "Elimina tantos comentarios como necesites"
+
+msgid "Smart Date Filtering"
+msgstr "Filtrado inteligente por fechas"
+
+msgid "Delete comments by date range"
+msgstr "Eliminar comentarios por rango de fechas"
+
+msgid "Export to CSV"
+msgstr "Exportar a CSV"
+
+msgid "Backup your comments before deletion"
+msgstr "Haz copia de tus comentarios antes de eliminarlos"
+
+msgid "Turn off comments globally or by post type"
+msgstr "Desactiva comentarios globalmente o por tipo de contenido"
+
+msgid "Allow specific roles to bypass restrictions"
+msgstr "Permitir que ciertos roles omitan las restricciones"
+
+msgid "Priority Support"
+msgstr "Soporte prioritario"
+
+msgid "Get help when you need it"
+msgstr "Obtén ayuda cuando la necesites"
+
+msgid "Auto Spam Cleanup"
+msgstr "Limpieza automática de spam"
+
+msgid "Automatically remove spam comments"
+msgstr "Eliminar automáticamente comentarios spam"
+
+msgid "🐾 Pawcause – 100% goes to Dog Charity"
+msgstr "🐾 Pawcause – 100% para beneficencia canina"
+
+msgid "🐶 100% of your upgrade goes directly to supporting dog charities."
+msgstr "🐶 El 100% de tu actualización va directamente a apoyar causas caninas."
+
+msgid "Role-Based Exclusions"
+msgstr "Exclusiones por rol"
+
+msgid "No comments found to delete"
+msgstr "No se encontraron comentarios para eliminar"
+
+msgid "No moderation comments found"
+msgstr "No se encontraron comentarios en moderación"
+
+msgid "No approved comments found"
+msgstr "No se encontraron comentarios aprobados"
+
+msgid "No spam comments found"
+msgstr "No se encontraron comentarios spam"
+
+msgid "No trash comments found"
+msgstr "No se encontraron comentarios en la papelera"
+
+msgid "No comments found between %s and %s"
+msgstr "No se encontraron comentarios entre %s y %s"
+
+msgid "Successfully deleted %d comments"
+msgstr "Se han eliminado %d comentarios correctamente"
+
+msgid "Successfully deleted %d moderation comments"
+msgstr "Se han eliminado %d comentarios en moderación correctamente"
+
+msgid "Successfully deleted %d approved comments"
+msgstr "Se han eliminado %d comentarios aprobados correctamente"
+
+msgid "Successfully deleted %d spam comments"
+msgstr "Se han eliminado %d comentarios spam correctamente"
+
+msgid "Successfully deleted %d trash comments"
+msgstr "Se han eliminado %d comentarios de la papelera correctamente"
+
+msgid "Successfully deleted %1$d comments between %2$s and %3$s"
+msgstr "Se han eliminado %1$d comentarios entre %2$s y %3$s correctamente"
+
+msgid "No comments found for the selected criteria or batch."
+msgstr "No se encontraron comentarios para los criterios o lote seleccionados."
+
+msgid "An error occurred during export: "
+msgstr "Se produjo un error durante la exportación: "
+
+msgid "Import feature is only available in the premium version"
+msgstr "La función de importación solo está disponible en la versión premium"
+
+msgid "Export feature is only available in the premium version"
+msgstr "La función de exportación solo está disponible en la versión premium"
+
+msgid "No comments found for the selected criteria"
+msgstr "No se encontraron comentarios para los criterios seleccionados"
+
+msgid "No comments found in this batch."
+msgstr "No se encontraron comentarios en este lote."
+
+msgid "Security check failed"
+msgstr "Comprobación de seguridad fallida"
+
+msgid "No file was uploaded"
+msgstr "No se subió ningún archivo"
+
+msgid "Invalid file type. Please upload a CSV file."
+msgstr "Tipo de archivo no válido. Sube un archivo CSV."
+
+msgid "Could not open the uploaded file"
+msgstr "No se pudo abrir el archivo subido"
+
+msgid "Invalid CSV format. The file must contain: Comment ID, Post ID, Author, Email, URL, Comment, Date, and Status columns."
+msgstr "Formato CSV no válido. El archivo debe contener las columnas: ID de comentario, ID de entrada, Autor, Email, URL, Comentario, Fecha y Estado."
+
+msgid "An error occurred while processing your request. Please try again later."
+msgstr "Se produjo un error al procesar tu solicitud. Inténtalo de nuevo más tarde."
+
+msgid "(After scheduling, if the \"Next Cleanup Date\" is not visible, please perform a hard refresh: Ctrl + Shift + R on Windows or Cmd + R on Mac.)"
+msgstr "(Tras programar, si no ves la \"Próxima fecha de limpieza\", haz una recarga forzada: Ctrl + Mayús + R en Windows o Cmd + R en Mac.)"

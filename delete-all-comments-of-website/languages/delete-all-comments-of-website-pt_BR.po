@@ -1,0 +1,348 @@
+# Portuguese (Brazil) translation for Delete All Comments of Website
+msgid ""
+msgstr ""
+"Project-Id-Version: Delete All Comments of Website 6.7\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Delete Comments"
+msgstr "Excluir comentários"
+
+msgid "Disable Comments"
+msgstr "Desativar comentários"
+
+msgid "Delete All Comments"
+msgstr "Excluir todos os comentários"
+
+msgid "Delete & Disable Comments"
+msgstr "Excluir e desativar comentários"
+
+msgid "Global Settings"
+msgstr "Configurações globais"
+
+msgid "Warning: Disabling comments will prevent users from commenting on your website."
+msgstr "Aviso: desativar comentários impedirá que os usuários comentem no seu site."
+
+msgid "Disable comments everywhere"
+msgstr "Desativar comentários em todo o site"
+
+msgid "Disable comments on specific post types"
+msgstr "Desativar comentários em tipos de post específicos"
+
+msgid "Upgrade to Premium to enable this feature"
+msgstr "Atualize para Premium para ativar este recurso"
+
+msgid "Premium"
+msgstr "Premium"
+
+msgid "Role-Based Exclusions"
+msgstr "Exclusões por função"
+
+msgid "Enable role-based exclusions to allow specific user roles to comment even when comments are disabled."
+msgstr "Ative exclusões por função para permitir que certos perfis comentem mesmo com comentários desativados."
+
+msgid "Enable Role-Based Exclusions"
+msgstr "Ativar exclusões por função"
+
+msgid "Avatar Settings"
+msgstr "Configurações de avatar"
+
+msgid "Show Avatars in Comments"
+msgstr "Mostrar avatares nos comentários"
+
+msgid "API Settings"
+msgstr "Configurações da API"
+
+msgid "Disable Comments via REST API"
+msgstr "Desativar comentários via REST API"
+
+msgid "Save Settings"
+msgstr "Salvar configurações"
+
+msgid "Reset All Settings"
+msgstr "Redefinir todas as configurações"
+
+msgid "Reset Settings?"
+msgstr "Redefinir configurações?"
+
+msgid "Are you sure you want to reset all comment settings? This will enable comments everywhere and remove all restrictions."
+msgstr "Tem certeza de que deseja redefinir todas as configurações de comentários? Isso ativará comentários em todo o site e removerá todas as restrições."
+
+msgid "Yes, reset settings"
+msgstr "Sim, redefinir"
+
+msgid "No, cancel"
+msgstr "Não, cancelar"
+
+msgid "Settings have been reset successfully."
+msgstr "As configurações foram redefinidas com sucesso."
+
+msgid "You can delete up to 500 comments."
+msgstr "Você pode excluir até 500 comentários."
+
+msgid "comments remaining in your free plan."
+msgstr "comentários restantes no seu plano gratuito."
+
+msgid "Upgrade to Premium"
+msgstr "Atualizar para Premium"
+
+msgid "All Comments"
+msgstr "Todos os comentários"
+
+msgid "comments"
+msgstr "comentários"
+
+msgid "Delete all comments from your website"
+msgstr "Excluir todos os comentários do seu site"
+
+msgid "Comments in Moderation"
+msgstr "Comentários em moderação"
+
+msgid "Approved Comments"
+msgstr "Comentários aprovados"
+
+msgid "Spam Comments"
+msgstr "Comentários de spam"
+
+msgid "Trash Comments"
+msgstr "Comentários na lixeira"
+
+msgid "Delete all comments in trash"
+msgstr "Excluir todos os comentários na lixeira"
+
+msgid "Date Range Filter"
+msgstr "Filtro por período"
+
+msgid "From Date"
+msgstr "Data inicial"
+
+msgid "To Date"
+msgstr "Data final"
+
+msgid "Delete Selected Comments"
+msgstr "Excluir comentários selecionados"
+
+msgid "Export Comments"
+msgstr "Exportar comentários"
+
+msgid "Export Comments (Premium)"
+msgstr "Exportar comentários (Premium)"
+
+msgid "Automatic Spam Cleanup"
+msgstr "Limpeza automática de spam"
+
+msgid "Premium Feature"
+msgstr "Recurso Premium"
+
+msgid "Disabled"
+msgstr "Desativado"
+
+msgid "Daily"
+msgstr "Diário"
+
+msgid "Weekly"
+msgstr "Semanal"
+
+msgid "Monthly"
+msgstr "Mensal"
+
+msgid "Schedule Now"
+msgstr "Agendar agora"
+
+msgid "Cancel Schedule"
+msgstr "Cancelar agendamento"
+
+msgid "Last Cleanup:"
+msgstr "Última limpeza:"
+
+msgid "Next Cleanup:"
+msgstr "Próxima limpeza:"
+
+msgid "Never"
+msgstr "Nunca"
+
+msgid "Not scheduled"
+msgstr "Não agendado"
+
+msgid "Comments Overview"
+msgstr "Visão geral dos comentários"
+
+msgid "Total Comments:"
+msgstr "Total de comentários:"
+
+msgid "In Moderation:"
+msgstr "Em moderação:"
+
+msgid "Approved:"
+msgstr "Aprovados:"
+
+msgid "Spam:"
+msgstr "Spam:"
+
+msgid "In Trash:"
+msgstr "Na lixeira:"
+
+msgid "Upgrade Now - Get Premium Access"
+msgstr "Atualize agora – acesse o Premium"
+
+msgid "30-day money-back guarantee"
+msgstr "Garantia de 30 dias"
+
+msgid "Once Weekly"
+msgstr "Uma vez por semana"
+
+msgid "Once Monthly"
+msgstr "Uma vez por mês"
+
+msgid "Settings saved successfully."
+msgstr "Configurações salvas com sucesso."
+
+msgid "You do not have sufficient permissions to perform this action."
+msgstr "Você não tem permissão para realizar esta ação."
+
+msgid "Security check failed. Please refresh the page and try again."
+msgstr "Verificação de segurança falhou. Atualize a página e tente novamente."
+
+msgid "Successfully deleted %d comments."
+msgstr "%d comentários excluídos com sucesso."
+
+msgid "No comments were deleted."
+msgstr "Nenhum comentário foi excluído."
+
+msgid "Comment ID"
+msgstr "ID do comentário"
+
+msgid "Post ID"
+msgstr "ID do post"
+
+msgid "Author"
+msgstr "Autor"
+
+msgid "Email"
+msgstr "E-mail"
+
+msgid "Comment"
+msgstr "Comentário"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Pending"
+msgstr "Pendente"
+
+msgid "Approved"
+msgstr "Aprovado"
+
+msgid "Spam"
+msgstr "Spam"
+
+msgid "Trash"
+msgstr "Lixeira"
+
+msgid "Saving..."
+msgstr "Salvando..."
+
+msgid "Success!"
+msgstr "Sucesso!"
+
+msgid "Settings have been saved successfully."
+msgstr "As configurações foram salvas com sucesso."
+
+msgid "Error!"
+msgstr "Erro!"
+
+msgid "Failed to save settings."
+msgstr "Falha ao salvar as configurações."
+
+msgid "Failed to reset settings"
+msgstr "Falha ao redefinir as configurações"
+
+msgid "Free Plan Limit Reached!"
+msgstr "Limite do plano gratuito atingido!"
+
+msgid "You can only delete up to 500 comments in the free plan."
+msgstr "No plano gratuito você só pode excluir até 500 comentários."
+
+msgid "You do not have sufficient permissions to access this page."
+msgstr "Você não tem permissão para acessar esta página."
+
+msgid "Sorry, you are not allowed to access this page."
+msgstr "Você não tem permissão para acessar esta página."
+
+msgid "Comments are disabled via REST API."
+msgstr "Os comentários estão desativados via REST API."
+
+msgid "Start date cannot be later than end date"
+msgstr "A data inicial não pode ser posterior à data final"
+
+msgid "Cannot select future dates"
+msgstr "Não é possível selecionar datas futuras"
+
+msgid "Automatic spam cleanup schedule has been cancelled."
+msgstr "O agendamento da limpeza automática de spam foi cancelado."
+
+msgid "Automatic spam cleanup has been scheduled to run %s."
+msgstr "A limpeza automática de spam foi agendada para executar %s."
+
+msgid "Automatic spam cleanup has been disabled."
+msgstr "A limpeza automática de spam foi desativada."
+
+msgid "Unlimited Comments"
+msgstr "Comentários ilimitados"
+
+msgid "Delete as many comments as you need"
+msgstr "Exclua quantos comentários precisar"
+
+msgid "Smart Date Filtering"
+msgstr "Filtro inteligente por data"
+
+msgid "Export to CSV"
+msgstr "Exportar para CSV"
+
+msgid "Priority Support"
+msgstr "Suporte prioritário"
+
+msgid "Get help when you need it"
+msgstr "Obtenha ajuda quando precisar"
+
+msgid "Auto Spam Cleanup"
+msgstr "Limpeza automática de spam"
+
+msgid "Automatically remove spam comments"
+msgstr "Remover comentários de spam automaticamente"
+
+msgid "No comments found to delete"
+msgstr "Nenhum comentário encontrado para excluir"
+
+msgid "No comments found for the selected criteria"
+msgstr "Nenhum comentário encontrado para os critérios selecionados"
+
+msgid "No comments found in this batch."
+msgstr "Nenhum comentário encontrado neste lote."
+
+msgid "Security check failed"
+msgstr "Verificação de segurança falhou"
+
+msgid "No file was uploaded"
+msgstr "Nenhum arquivo foi enviado"
+
+msgid "Invalid file type. Please upload a CSV file."
+msgstr "Tipo de arquivo inválido. Envie um arquivo CSV."
+
+msgid "Could not open the uploaded file"
+msgstr "Não foi possível abrir o arquivo enviado"
+
+msgid "An error occurred while processing your request. Please try again later."
+msgstr "Ocorreu um erro ao processar sua solicitação. Tente novamente mais tarde."
+
+msgid "Import feature is only available in the premium version"
+msgstr "O recurso de importação está disponível apenas na versão premium"
+
+msgid "Export feature is only available in the premium version"
+msgstr "O recurso de exportação está disponível apenas na versão premium"

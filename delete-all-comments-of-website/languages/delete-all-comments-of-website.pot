@@ -1,0 +1,469 @@
+# Copyright (C) 2025 WP Comment Cleaner
+# This file is distributed under the same license as the delete-all-comments-of-website package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Delete All Comments of Website 6.7\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-18 12:00+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: \n"
+
+msgid "Delete Comments"
+msgstr ""
+
+msgid "Disable Comments"
+msgstr ""
+
+msgid "Delete All Comments"
+msgstr ""
+
+msgid "Delete & Disable Comments"
+msgstr ""
+
+msgid "Global Settings"
+msgstr ""
+
+msgid "Warning: Disabling comments will prevent users from commenting on your website."
+msgstr ""
+
+msgid "Disable comments everywhere"
+msgstr ""
+
+msgid "Disable comments on specific post types"
+msgstr ""
+
+msgid "Upgrade to Premium to enable this feature"
+msgstr ""
+
+msgid "Premium"
+msgstr ""
+
+msgid "Role-Based Exclusions"
+msgstr ""
+
+msgid "Enable role-based exclusions to allow specific user roles to comment even when comments are disabled."
+msgstr ""
+
+msgid "Enable Role-Based Exclusions"
+msgstr ""
+
+msgid "Avatar Settings"
+msgstr ""
+
+msgid "Show Avatars in Comments"
+msgstr ""
+
+msgid "API Settings"
+msgstr ""
+
+msgid "Disable Comments via REST API"
+msgstr ""
+
+msgid "Save Settings"
+msgstr ""
+
+msgid "Reset All Settings"
+msgstr ""
+
+msgid "Reset Settings?"
+msgstr ""
+
+msgid "Are you sure you want to reset all comment settings? This will enable comments everywhere and remove all restrictions."
+msgstr ""
+
+msgid "Yes, reset settings"
+msgstr ""
+
+msgid "No, cancel"
+msgstr ""
+
+msgid "Settings have been reset successfully."
+msgstr ""
+
+msgid "You can delete up to 500 comments."
+msgstr ""
+
+msgid "comments remaining in your free plan."
+msgstr ""
+
+msgid "Upgrade to Premium"
+msgstr ""
+
+msgid "Warning: Irreversible Action (Deleted comments cannot be recovered. Please make sure to export your comments before deletion if needed.)"
+msgstr ""
+
+msgid "All Comments"
+msgstr ""
+
+msgid "comments"
+msgstr ""
+
+msgid "Delete all comments from your website"
+msgstr ""
+
+msgid "Comments in Moderation"
+msgstr ""
+
+msgid "Delete all comments marked as moderation"
+msgstr ""
+
+msgid "Approved Comments"
+msgstr ""
+
+msgid "Delete all approved comments"
+msgstr ""
+
+msgid "Spam Comments"
+msgstr ""
+
+msgid "Delete all spam comments"
+msgstr ""
+
+msgid "Trash Comments"
+msgstr ""
+
+msgid "Delete all comments in trash"
+msgstr ""
+
+msgid "Date Range Filter"
+msgstr ""
+
+msgid "Select a date range to delete comments from a specific period"
+msgstr ""
+
+msgid "From Date"
+msgstr ""
+
+msgid "To Date"
+msgstr ""
+
+msgid "Date Range Error:"
+msgstr ""
+
+msgid "Date range filtering is available in the premium plan"
+msgstr ""
+
+msgid "Upgrade"
+msgstr ""
+
+msgid "Delete Selected Comments"
+msgstr ""
+
+msgid "Export your comments as CSV"
+msgstr ""
+
+msgid "Export Comments"
+msgstr ""
+
+msgid "Available in Premium version"
+msgstr ""
+
+msgid "Export Comments (Premium)"
+msgstr ""
+
+msgid "Automatic Spam Cleanup"
+msgstr ""
+
+msgid "Premium Feature"
+msgstr ""
+
+msgid "Automatically clean up spam comments on a schedule."
+msgstr ""
+
+msgid "Auto-delete Spam:"
+msgstr ""
+
+msgid "Disabled"
+msgstr ""
+
+msgid "Daily"
+msgstr ""
+
+msgid "Weekly"
+msgstr ""
+
+msgid "Monthly"
+msgstr ""
+
+msgid "Schedule Now"
+msgstr ""
+
+msgid "Cancel Schedule"
+msgstr ""
+
+msgid "Last Cleanup:"
+msgstr ""
+
+msgid "Next Cleanup:"
+msgstr ""
+
+msgid "Never"
+msgstr ""
+
+msgid "Not scheduled"
+msgstr ""
+
+msgid "Comments Overview"
+msgstr ""
+
+msgid "Total Comments:"
+msgstr ""
+
+msgid "In Moderation:"
+msgstr ""
+
+msgid "Approved:"
+msgstr ""
+
+msgid "Spam:"
+msgstr ""
+
+msgid "In Trash:"
+msgstr ""
+
+msgid "Upgrade Now - Get Premium Access"
+msgstr ""
+
+msgid "30-day money-back guarantee"
+msgstr ""
+
+msgid "Once Weekly"
+msgstr ""
+
+msgid "Once Monthly"
+msgstr ""
+
+msgid "Settings saved successfully."
+msgstr ""
+
+msgid "You do not have sufficient permissions to perform this action."
+msgstr ""
+
+msgid "Security check failed. Please refresh the page and try again."
+msgstr ""
+
+msgid "Successfully deleted %d comments."
+msgstr ""
+
+msgid "No comments were deleted."
+msgstr ""
+
+msgid "Comment ID"
+msgstr ""
+
+msgid "Post ID"
+msgstr ""
+
+msgid "Author"
+msgstr ""
+
+msgid "Email"
+msgstr ""
+
+msgid "URL"
+msgstr ""
+
+msgid "Comment"
+msgstr ""
+
+msgid "Date"
+msgstr ""
+
+msgid "Status"
+msgstr ""
+
+msgid "Pending"
+msgstr ""
+
+msgid "Approved"
+msgstr ""
+
+msgid "Spam"
+msgstr ""
+
+msgid "Trash"
+msgstr ""
+
+msgid "Saving..."
+msgstr ""
+
+msgid "Success!"
+msgstr ""
+
+msgid "Settings have been saved successfully."
+msgstr ""
+
+msgid "Error!"
+msgstr ""
+
+msgid "Failed to save settings."
+msgstr ""
+
+msgid "Failed to reset settings"
+msgstr ""
+
+msgid "Free Plan Limit Reached!"
+msgstr ""
+
+msgid "You can only delete up to 500 comments in the free plan."
+msgstr ""
+
+msgid "to delete unlimited comments and get additional features like date range selection!"
+msgstr ""
+
+msgid "You do not have sufficient permissions to access this page."
+msgstr ""
+
+msgid "Sorry, you are not allowed to access this page."
+msgstr ""
+
+msgid "Comments are disabled via REST API."
+msgstr ""
+
+msgid "Start date cannot be later than end date"
+msgstr ""
+
+msgid "Cannot select future dates"
+msgstr ""
+
+msgid "Never"
+msgstr ""
+
+msgid "Not scheduled"
+msgstr ""
+
+msgid "Automatic spam cleanup schedule has been cancelled."
+msgstr ""
+
+msgid "Automatic spam cleanup has been scheduled to run %s."
+msgstr ""
+
+msgid "Automatic spam cleanup has been disabled."
+msgstr ""
+
+msgid "Unlimited Comments"
+msgstr ""
+
+msgid "Delete as many comments as you need"
+msgstr ""
+
+msgid "Smart Date Filtering"
+msgstr ""
+
+msgid "Delete comments by date range"
+msgstr ""
+
+msgid "Export to CSV"
+msgstr ""
+
+msgid "Backup your comments before deletion"
+msgstr ""
+
+msgid "Turn off comments globally or by post type"
+msgstr ""
+
+msgid "Allow specific roles to bypass restrictions"
+msgstr ""
+
+msgid "Priority Support"
+msgstr ""
+
+msgid "Get help when you need it"
+msgstr ""
+
+msgid "Auto Spam Cleanup"
+msgstr ""
+
+msgid "Automatically remove spam comments"
+msgstr ""
+
+msgid "🐾 Pawcause – 100% goes to Dog Charity"
+msgstr ""
+
+msgid "🐶 100% of your upgrade goes directly to supporting dog charities."
+msgstr ""
+
+msgid "Role-Based Exclusions"
+msgstr ""
+
+msgid "No comments found to delete"
+msgstr ""
+
+msgid "No moderation comments found"
+msgstr ""
+
+msgid "No approved comments found"
+msgstr ""
+
+msgid "No spam comments found"
+msgstr ""
+
+msgid "No trash comments found"
+msgstr ""
+
+msgid "No comments found between %s and %s"
+msgstr ""
+
+msgid "Successfully deleted %d comments"
+msgstr ""
+
+msgid "Successfully deleted %d moderation comments"
+msgstr ""
+
+msgid "Successfully deleted %d approved comments"
+msgstr ""
+
+msgid "Successfully deleted %d spam comments"
+msgstr ""
+
+msgid "Successfully deleted %d trash comments"
+msgstr ""
+
+msgid "Successfully deleted %1$d comments between %2$s and %3$s"
+msgstr ""
+
+msgid "No comments found for the selected criteria or batch."
+msgstr ""
+
+msgid "An error occurred during export: "
+msgstr ""
+
+msgid "Import feature is only available in the premium version"
+msgstr ""
+
+msgid "Export feature is only available in the premium version"
+msgstr ""
+
+msgid "No comments found for the selected criteria"
+msgstr ""
+
+msgid "No comments found in this batch."
+msgstr ""
+
+msgid "Security check failed"
+msgstr ""
+
+msgid "No file was uploaded"
+msgstr ""
+
+msgid "Invalid file type. Please upload a CSV file."
+msgstr ""
+
+msgid "Could not open the uploaded file"
+msgstr ""
+
+msgid "Invalid CSV format. The file must contain: Comment ID, Post ID, Author, Email, URL, Comment, Date, and Status columns."
+msgstr ""
+
+msgid "An error occurred while processing your request. Please try again later."
+msgstr ""
+
+msgid "(After scheduling, if the \"Next Cleanup Date\" is not visible, please perform a hard refresh: Ctrl + Shift + R on Windows or Cmd + R on Mac.)"
+msgstr ""
