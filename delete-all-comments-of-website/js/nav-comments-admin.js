@@ -1,4 +1,43 @@
 jQuery(document).ready(function($) {
+    // Compatibility shim: support SweetAlert v1 locally without remote SweetAlert2.
+    if (typeof window.Swal === "undefined") {
+        window.Swal = {
+            fire: function(options) {
+                return new Promise(function(resolve) {
+                    var title = (options && options.title) ? options.title + "\n\n" : "";
+                    var text = (options && options.text) ? options.text : "";
+                    var useConfirm = options && options.showCancelButton;
+                    var ok = useConfirm ? window.confirm(title + text) : (window.alert(title + text), true);
+                    if (!ok) {
+                        resolve({ isConfirmed: false, value: null });
+                        return;
+                    }
+
+                    // Emulate SweetAlert2 preConfirm flow used by delete/export actions.
+                    if (options && typeof options.preConfirm === "function") {
+                        Promise.resolve(options.preConfirm())
+                            .then(function(value) {
+                                resolve({ isConfirmed: true, value: value });
+                            })
+                            .catch(function(error) {
+                                window.alert((error && error.message) ? error.message : String(error));
+                                resolve({ isConfirmed: false, value: null });
+                            });
+                        return;
+                    }
+
+                    resolve({ isConfirmed: true, value: {} });
+                });
+            },
+            showValidationMessage: function(message) {
+                window.alert(message);
+            },
+            isLoading: function() {
+                return false;
+            }
+        };
+    }
+
     // Handle form submission
     $("#nav-disable-comments-form").on("submit", function(e) {
 		
@@ -235,7 +274,7 @@ if (commentCount === 0) {
             showLoaderOnConfirm: true,
             preConfirm: () => {
                 return $.ajax({
-                    url: form.attr("action"),
+                    url: navCommentsSettings.ajaxurl,
                     type: "POST",
                     data: form.serialize(),
                     processData: true,

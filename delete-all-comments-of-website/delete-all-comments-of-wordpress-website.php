@@ -1,10 +1,14 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
     /*
-    Plugin Name: WP Comment Cleaner – Delete All Comments, Disable Comments, Bulk Delete & Remove Comments
+    Plugin Name: NavneetSoni Comment Cleaner
     Plugin URI: http://www.navneetsoni.com/plugins/delete-comments
-    Description: A complete WordPress comment management plugin to delete comments, disable comments, bulk delete comments, remove comments, and delete all comments in one click. Easily manage approved, pending, spam, or trashed comments. Disable comments globally or by post type, apply role-based exclusions, export comments, and automate spam cleanup with scheduled deletion.
+    Description: Manage WordPress comments with bulk delete tools, CSV import/export, global or post-type comment settings, role exclusions, and scheduled spam cleanup.
     Author: royalnavneet
-    Version: 6.8
+    Version: 7.0
     Author URI: http://www.navneetsoni.com
     Text Domain: delete-all-comments-of-website
     Domain Path: /languages
@@ -50,8 +54,6 @@
 $fs = nonu_fs();
 
 add_action( 'admin_enqueue_scripts', 'my_admin_scripts_nav' );
-
-add_action( 'admin_menu', 'nav_delete_all_comment' );
 define( 'NAV_COMENT_PLUGIN_URI', plugin_dir_url( __FILE__ ) );
 define( 'NAV_DELETE_COMMENTS_TEXT_DOMAIN', 'delete-all-comments-of-website' );
 
@@ -67,8 +69,8 @@ function nav_delete_comments_load_textdomain() {
 function nav_translate_plugin_meta( $plugins ) {
     $basename = plugin_basename( __FILE__ );
     if ( isset( $plugins[ $basename ] ) ) {
-        $plugins[ $basename ]['Name']        = __( 'WP Comment Cleaner – Delete All Comments, Disable Comments, Bulk Delete & Remove Comments', NAV_DELETE_COMMENTS_TEXT_DOMAIN );
-        $plugins[ $basename ]['Description'] = __( 'A complete WordPress comment management plugin to delete comments, disable comments, bulk delete comments, remove comments, and delete all comments in one click. Easily manage approved, pending, spam, or trashed comments. Disable comments globally or by post type, apply role-based exclusions, export comments, and automate spam cleanup with scheduled deletion.', NAV_DELETE_COMMENTS_TEXT_DOMAIN );
+        $plugins[ $basename ]['Name']        = __( 'NavneetSoni Comment Cleaner', NAV_DELETE_COMMENTS_TEXT_DOMAIN );
+        $plugins[ $basename ]['Description'] = __( 'Manage WordPress comments with bulk delete tools, CSV import/export, global or post-type comment settings, role exclusions, and scheduled spam cleanup.', NAV_DELETE_COMMENTS_TEXT_DOMAIN );
     }
     return $plugins;
 }
@@ -84,12 +86,14 @@ function my_admin_scripts_nav($hook) {
     // Enqueue jQuery
     wp_enqueue_script('jquery');
 
-    // Enqueue Bootstrap
-    wp_enqueue_style('bootstrap', 'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css');
-    wp_enqueue_script('bootstrap', 'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js', array('jquery'));
-
-    // Enqueue SweetAlert2
-    wp_enqueue_script('sweetalert2', 'https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js');
+    // Enqueue bundled dialog library locally (no remote dependencies).
+    wp_enqueue_style('sweetalert', plugins_url('include/sweetalert.css', __FILE__), array(), '1.1.3');
+    wp_enqueue_script('sweetalert', plugins_url('include/sweetalert.min.js', __FILE__), array('jquery'), '1.1.3', false);
+    wp_add_inline_script(
+        'sweetalert',
+        "if(typeof window.Swal==='undefined'){window.Swal={fire:function(o){return new Promise(function(resolve){var done=function(ok){if(!ok){resolve({isConfirmed:false,value:null});return;}if(o&&typeof o.preConfirm==='function'){Promise.resolve(o.preConfirm()).then(function(v){resolve({isConfirmed:true,value:v});}).catch(function(e){window.alert((e&&e.message)?e.message:String(e));resolve({isConfirmed:false,value:null});});return;}resolve({isConfirmed:true,value:{}});};if(typeof window.swal==='function'){window.swal({title:(o&&o.title)||'',text:(o&&o.text)||'',type:(o&&o.icon)||'info',showCancelButton:!!(o&&o.showCancelButton),confirmButtonText:(o&&o.confirmButtonText)||'OK',cancelButtonText:(o&&o.cancelButtonText)||'Cancel'}).then(function(v){var ok=(v===true)||(v&&v.value===true)||(v&&v.isConfirmed===true);done(!!ok);});}else{var msg=((o&&o.title)?o.title+'\\n\\n':'')+((o&&o.text)?o.text:'');var ok=(o&&o.showCancelButton)?window.confirm(msg):(window.alert(msg),true);done(!!ok);}});},showValidationMessage:function(m){window.alert(m);},isLoading:function(){return false;}};}",
+        'after'
+    );
 
     // Enqueue custom CSS and JS
     wp_enqueue_style('nav-comments-admin', plugins_url('css/nav-comments-admin.css', __FILE__), array(), '1.0.0');
@@ -146,7 +150,7 @@ function nav_ajax_save_comment_settings() {
     }
 
     // Verify nonce
-    if (!isset($_POST['_wpnonce']) || !wp_verify_nonce($_POST['_wpnonce'], 'nav_comments_settings_nonce')) {
+    if (!isset($_POST['_wpnonce']) || !wp_verify_nonce(sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'nav_comments_settings_nonce')) {
         wp_send_json_error(array(
             'message' => 'Security check failed. Please refresh the page and try again.'
         ));
@@ -231,7 +235,7 @@ function nav_ajax_reset_comment_settings() {
     }
 
     // Verify nonce
-    if (!isset($_POST['_wpnonce']) || !wp_verify_nonce($_POST['_wpnonce'], 'nav_comments_settings_nonce')) {
+    if (!isset($_POST['_wpnonce']) || !wp_verify_nonce(sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'nav_comments_settings_nonce')) {
         wp_send_json_error(array(
             'message' => 'Security check failed. Please refresh the page and try again.'
         ));
@@ -261,7 +265,7 @@ function nav_disable_comments_settings() {
     }
 
     $fs = nonu_fs();
-    $disable_type = get_option('nav_disable_type', 'everywhere');
+    $disable_type = get_option('nav_disable_comments_type', 'everywhere');
     $post_types = get_post_types(array('public' => true), 'objects');
     
     $excluded_post_types = array(
@@ -388,9 +392,6 @@ function nav_disable_comments_settings() {
                             <label class="nav-radio <?php echo $disable_type === 'specific' ? 'selected' : ''; ?> premium-feature">
                                 <input type="radio" name="nav_disable_type" value="specific" <?php checked($disable_type, 'specific'); ?> >
                                 <span class="nav-radio-label"><?php esc_html_e( 'Disable comments on specific post types', NAV_DELETE_COMMENTS_TEXT_DOMAIN ); ?></span>
-                                <?php if (!$fs->is_paying()): ?>
-                                    <span class="premium-message" title="<?php esc_attr_e( 'Upgrade to Premium to enable this feature', NAV_DELETE_COMMENTS_TEXT_DOMAIN ); ?>"><?php esc_html_e( 'Premium', NAV_DELETE_COMMENTS_TEXT_DOMAIN ); ?></span>
-                                <?php endif; ?>
                             </label>
                         </div>
 
@@ -401,13 +402,10 @@ function nav_disable_comments_settings() {
                                     if (!in_array($post_type->name, $excluded_post_types) && $post_type->name !== 'attachment') {
                                         $is_disabled = get_option('nav_disable_comments_' . $post_type->name, '0');
                                         ?>
-														  <label class="nav-checkbox premium-feature" style="display: flex; align-items: center; gap: 8px; padding: 8px; border-radius: 4px; <?php echo (!$fs->is_paying()) ? 'cursor: not-allowed; opacity: 0.6;' : 'cursor: pointer;'; ?>">
-						<input type="checkbox" name="nav_disable_comments_<?php echo $post_type->name; ?>" 
-							value="1" <?php checked($is_disabled, '1'); ?> <?php disabled(!$fs->is_paying() || $disable_type === 'everywhere'); ?>>
-						<span class="nav-checkbox-label"><?php echo $post_type->label; ?></span>
-						<?php if (!$fs->is_paying()): ?>
-							<span class="premium-message" title="<?php esc_attr_e( 'Upgrade to Premium to enable this feature', NAV_DELETE_COMMENTS_TEXT_DOMAIN ); ?>" style="margin-left: 8px; color: #d97706; font-weight: bold;"><?php esc_html_e( 'Premium', NAV_DELETE_COMMENTS_TEXT_DOMAIN ); ?></span>
-						<?php endif; ?>
+														  <label class="nav-checkbox premium-feature" style="display: flex; align-items: center; gap: 8px; padding: 8px; border-radius: 4px; cursor: pointer;">
+						<input type="checkbox" name="nav_disable_comments_<?php echo esc_attr( $post_type->name ); ?>" 
+							value="1" <?php checked($is_disabled, '1'); ?> <?php disabled($disable_type === 'everywhere'); ?>>
+						<span class="nav-checkbox-label"><?php echo esc_html( $post_type->label ); ?></span>
 					</label>
                                         <?php
                                     }
@@ -435,12 +433,9 @@ function nav_disable_comments_settings() {
 
                             <div class="nav-toggle-switch premium-feature" style="margin: 20px 0; position: relative;">
                                 <input type="checkbox" id="nav_enable_role_exclusions" name="nav_enable_role_exclusions" 
-                                    value="1" <?php checked(get_option('nav_enable_role_exclusions', '0'), '1'); ?> <?php disabled(!$fs->is_paying()); ?>>
+                                    value="1" <?php checked(get_option('nav_enable_role_exclusions', '0'), '1'); ?>>
                                 <label for="nav_enable_role_exclusions" class="nav-toggle-slider"></label>
                                 <span class="nav-toggle-label" style="margin-left: 10px;"><?php esc_html_e( 'Enable Role-Based Exclusions', NAV_DELETE_COMMENTS_TEXT_DOMAIN ); ?></span>
-                                <?php if (!$fs->is_paying()): ?>
-                                    <span class="premium-message" title="<?php esc_attr_e( 'Upgrade to Premium to enable this feature', NAV_DELETE_COMMENTS_TEXT_DOMAIN ); ?>"><?php esc_html_e( 'Premium', NAV_DELETE_COMMENTS_TEXT_DOMAIN ); ?></span>
-                                <?php endif; ?>
                             </div>
 
                             <div class="nav-roles-container <?php echo get_option('nav_enable_role_exclusions', '0') === '1' ? 'active' : ''; ?>" style="margin-top: 20px;">
@@ -451,12 +446,9 @@ function nav_disable_comments_settings() {
                                         $is_excluded = get_option('nav_exclude_role_' . $role, '0');
                                         ?>
                                         <label class="nav-checkbox premium-feature" style="display: flex; align-items: center; gap: 8px;">
-                                            <input type="checkbox" name="nav_exclude_role_<?php echo $role; ?>" 
-                                                value="1" <?php checked($is_excluded, '1'); ?> <?php disabled(!$fs->is_paying() || get_option('nav_enable_role_exclusions', '0') !== '1'); ?>>
-                                            <span class="nav-checkbox-label"><?php echo $name; ?></span>
-                                            <?php if (!$fs->is_paying()): ?>
-                                                <span class="premium-message" title="<?php esc_attr_e( 'Upgrade to Premium to enable this feature', NAV_DELETE_COMMENTS_TEXT_DOMAIN ); ?>"><?php esc_html_e( 'Premium', NAV_DELETE_COMMENTS_TEXT_DOMAIN ); ?></span>
-                                            <?php endif; ?>
+                                            <input type="checkbox" name="nav_exclude_role_<?php echo esc_attr( $role ); ?>" 
+                                                value="1" <?php checked($is_excluded, '1'); ?> <?php disabled(get_option('nav_enable_role_exclusions', '0') !== '1'); ?>>
+                                            <span class="nav-checkbox-label"><?php echo esc_html( $name ); ?></span>
                                         </label>
                                         <?php
                                     }
@@ -509,7 +501,6 @@ function nav_disable_comments_settings() {
 
             <div id="postbox-container-1" class="postbox-container">
                 <div id="side-sortables" class="meta-box-sortables ui-sortable">
-                    <?php if (!$fs->is_paying()): ?>
                         <div class="postbox support-postbox" style="background-color: #fcf8e3">
                             <div class="handlediv" title="Click to toggle"><br></div>
                           <div class="inside">
@@ -553,7 +544,7 @@ function nav_disable_comments_settings() {
         </ul>
 
         <div style="text-align: center;">
-            <a href="<?php echo nonu_fs()->get_upgrade_url(); ?>" class="button button-primary" style="font-size: 12px; padding: 8px 25px; background-color: #2271b1; border-color: #2271b1; width: 100%;">
+            <a href="<?php echo esc_url( nonu_fs()->get_upgrade_url() ); ?>" class="button button-primary" style="font-size: 12px; padding: 8px 25px; background-color: #2271b1; border-color: #2271b1; width: 100%;">
                 <?php esc_html_e( 'Upgrade Now - Get Premium Access', NAV_DELETE_COMMENTS_TEXT_DOMAIN ); ?>
             </a>
             <p style="color: #666; font-size: 12px; margin-top: 10px; text-align: center;">
@@ -564,7 +555,6 @@ function nav_disable_comments_settings() {
 </div>
 
                         </div>
-                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -588,7 +578,7 @@ function nav_disable_comments_settings() {
 
         // Handle premium message clicks
         $(".premium-message").on("click", function() {
-            window.location.href = "<?php echo $fs->get_upgrade_url(); ?>";
+            window.location.href = "<?php echo esc_js( $fs->get_upgrade_url() ); ?>";
         });
 
         // Handle reset button click
@@ -747,22 +737,28 @@ add_filter('pings_open', 'nav_disable_comments', 20, 2);
 if( !function_exists("nav_delete_all_comment") )
 {
 function nav_delete_all_comment() {
+    if ( ! current_user_can( 'manage_options' ) ) {
+        return 0;
+    }
+
+    if ( ! isset( $_POST['nav@final_delete'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nav@final_delete'] ) ), 'nav@final_delete' ) ) {
+        return 0;
+    }
+
     global $wpdb;
 
     $count = 0;
-    $favcolor_nav = isset($_POST['nav_delete_comment']) ? $_POST['nav_delete_comment'] : '';
+    $favcolor_nav = isset($_POST['nav_delete_comment']) ? sanitize_text_field( wp_unslash( $_POST['nav_delete_comment'] ) ) : '';
     $date_filter = '';
 
     // Apply date range only for paid users
-    if (nonu_fs()->is_paying()) {
-        $date_from = isset($_POST['nav_delete_commentfrom']) ? sanitize_text_field($_POST['nav_delete_commentfrom']) : '';
-        $date_to = isset($_POST['nav_delete_commentto']) ? sanitize_text_field($_POST['nav_delete_commentto']) : '';
+    $date_from = isset($_POST['nav_delete_commentfrom']) ? sanitize_text_field($_POST['nav_delete_commentfrom']) : '';
+    $date_to = isset($_POST['nav_delete_commentto']) ? sanitize_text_field($_POST['nav_delete_commentto']) : '';
 
-        if ($date_from && $date_to) {
-            $from = date('Y-m-d 00:00:00', strtotime($date_from));
-            $to = date('Y-m-d 23:59:59', strtotime($date_to));
-            $date_filter = $wpdb->prepare(" AND comment_date BETWEEN %s AND %s", $from, $to);
-        }
+    if ($date_from && $date_to) {
+        $from = date('Y-m-d 00:00:00', strtotime($date_from));
+        $to = date('Y-m-d 23:59:59', strtotime($date_to));
+        $date_filter = $wpdb->prepare(" AND comment_date BETWEEN %s AND %s", $from, $to);
     }
 
     switch($favcolor_nav) {
@@ -860,24 +856,12 @@ function nav_get_total_comments() {
 
 // Function to check if user can delete more comments
 function nav_can_delete_more_comments() {
-    if (nonu_fs()->is_paying()) {
-        return true;
-    }
-    
-    $total_comments = nav_get_total_comments();
-    return $total_comments <= 500;
+    return true;
 }
 
 // Function to get remaining free comments
 function nav_get_remaining_free_comments() {
-    try {
-        $total_comments = nav_get_total_comments();
-        $deleted_comments = get_option('nav_deleted_comments_count', 0);
-        $remaining = 500 - $deleted_comments;
-        return max(0, $remaining);
-    } catch (Exception $e) {
-        return 0;
-    }
+    return nav_get_total_comments();
 }
 
 // Add function to track deleted comments
@@ -922,7 +906,7 @@ function nav_get_comments_count_with_date($date_from = '', $date_to = '') {
 
 // Function to show no comments message
 function nav_show_no_comments_message($type, $date_from = '', $date_to = '') {
-    $is_premium = nonu_fs()->is_paying();
+    $is_premium = true;
     $message = '';
     
     if ($is_premium && $date_from && $date_to) {
@@ -951,7 +935,7 @@ function nav_show_no_comments_message($type, $date_from = '', $date_to = '') {
 
 // Function to show success message
 function nav_show_success_message($count, $type, $date_from = '', $date_to = '') {
-    $is_premium = nonu_fs()->is_paying();
+    $is_premium = true;
     $message = '';
     
     if ($is_premium && $date_from && $date_to) {
@@ -1031,7 +1015,7 @@ function nav_show_alert($type, $message, $buttons = array()) {
                 text: "<?php echo esc_js($message); ?>",
                 icon: "<?php echo esc_js($type === 'Success!' ? 'success' : ($type === 'Error!' ? 'error' : 'info')); ?>",
                 <?php if (!empty($buttons)): ?>
-                buttons: <?php echo json_encode($buttons); ?>,
+                buttons: <?php echo wp_json_encode( $buttons ); ?>,
                 <?php endif; ?>
             }).then((value) => {
                 <?php if (isset($buttons['upgrade'])): ?>
@@ -1052,9 +1036,6 @@ function nav_show_alert($type, $message, $buttons = array()) {
 
 // Add this new function after the existing functions but before the main delete function
 function nav_export_comments($type = 'all', $date_from = '', $date_to = '', $limit = 10000, $offset = 0) {
-    // Start output buffering
-    ob_start();
-    
     global $wpdb;
     
     try {
@@ -1093,8 +1074,6 @@ function nav_export_comments($type = 'all', $date_from = '', $date_to = '', $lim
         $comments = $wpdb->get_results("SELECT * FROM $wpdb->comments $where_clause $limit_clause");
         
         if (empty($comments)) {
-            // Clean the buffer before outputting JSON response for no comments
-            ob_clean();
             // Using wp_redirect for a better user experience on no comments found during export
             $redirect_url = add_query_arg(array('nav_export_message' => urlencode('No comments found for the selected criteria or batch.'), 'nav_export_status' => 'info'), wp_get_referer());
             wp_redirect($redirect_url);
@@ -1158,9 +1137,6 @@ function nav_export_comments($type = 'all', $date_from = '', $date_to = '', $lim
         $csv = stream_get_contents($output);
         fclose($output);
         
-        // Clean the buffer before outputting CSV
-        ob_clean();
-        
         // Set headers for download
         header('Content-Type: text/csv');
         header('Content-Disposition: attachment; filename="' . $filename . '"');
@@ -1172,8 +1148,6 @@ function nav_export_comments($type = 'all', $date_from = '', $date_to = '', $lim
         exit;
         
     } catch (Exception $e) {
-        // Clean the buffer before outputting error response
-        ob_clean();
         $redirect_url = add_query_arg(array('nav_export_message' => urlencode( __( 'An error occurred during export: ', NAV_DELETE_COMMENTS_TEXT_DOMAIN ) . $e->getMessage() ), 'nav_export_status' => 'error'), wp_get_referer());
         wp_redirect($redirect_url);
         exit;
@@ -1189,14 +1163,6 @@ add_action('wp_ajax_nav_delete_comments_ajax', 'nav_handle_delete_ajax');
 // Add AJAX handler for delete action
 function nav_handle_delete_ajax() {
     
-    if (!nonu_fs()->is_paying() && !nav_can_delete_more_comments()) {
-    wp_send_json_error(array(
-        'message' => __( 'Free plan limit reached. You can only delete up to 500 comments. Upgrade to Premium for unlimited access.', NAV_DELETE_COMMENTS_TEXT_DOMAIN )
-    ));
-    return;
-    }
-    
-    
     // Check if user has proper permissions
     if (!current_user_can('manage_options')) {
         wp_send_json_error(array(
@@ -1206,7 +1172,7 @@ function nav_handle_delete_ajax() {
     }
 
     // Verify nonce
-    if (!isset($_POST['nav@final_delete']) || !wp_verify_nonce($_POST['nav@final_delete'], 'nav@final_delete')) {
+    if (!isset($_POST['nav@final_delete']) || !wp_verify_nonce(sanitize_text_field( wp_unslash( $_POST['nav@final_delete'] ) ), 'nav@final_delete')) {
         wp_send_json_error(array(
             'message' => 'Security check failed. Please refresh the page and try again.'
         ));
@@ -1246,7 +1212,7 @@ function nav_delete_comment(){
     $current_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'delete';
     
     // Handle delete action
-    if(isset($_POST['nav_delete_comment']) && isset($_POST['nav@final_delete']) && wp_verify_nonce($_POST['nav@final_delete'], 'nav@final_delete')) {
+    if(isset($_POST['nav_delete_comment']) && isset($_POST['nav@final_delete']) && wp_verify_nonce(sanitize_text_field( wp_unslash( $_POST['nav@final_delete'] ) ), 'nav@final_delete')) {
         $count = nav_delete_all_comment();
         if ($count > 0) {
             if (wp_doing_ajax()) {
@@ -1287,33 +1253,23 @@ function nav_delete_comment(){
             'trash' => $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->comments WHERE comment_approved = 'trash' AND comment_type = 'comment'")
         );
         
-        // Check if user can delete more comments
-        if (!nav_can_delete_more_comments()) {
-            nav_show_upgrade_notice();
-        }
+        $is_premium = true;
         
-        // Check if user is premium
-        $is_premium = nonu_fs()->is_paying();
-        
-        // Get date range if premium user
         $date_from = '';
         $date_to = '';
         $date_errors = array();
-        
-        if ($is_premium) {
-            $date_from = isset($_POST['nav_delete_commentfrom']) ? sanitize_text_field($_POST['nav_delete_commentfrom']) : '';
-            $date_to = isset($_POST['nav_delete_commentto']) ? sanitize_text_field($_POST['nav_delete_commentto']) : '';
-            
-            // Validate date range
-            $date_errors = nav_validate_date_range($date_from, $date_to);
-            
-            // Format dates for display
-            if (!empty($date_from)) {
-                $date_from = nav_format_date($date_from);
-            }
-            if (!empty($date_to)) {
-                $date_to = nav_format_date($date_to);
-            }
+        $date_from = isset($_POST['nav_delete_commentfrom']) ? sanitize_text_field($_POST['nav_delete_commentfrom']) : '';
+        $date_to = isset($_POST['nav_delete_commentto']) ? sanitize_text_field($_POST['nav_delete_commentto']) : '';
+
+        // Validate date range
+        $date_errors = nav_validate_date_range($date_from, $date_to);
+
+        // Format dates for display
+        if (!empty($date_from)) {
+            $date_from = nav_format_date($date_from);
+        }
+        if (!empty($date_to)) {
+            $date_to = nav_format_date($date_to);
         }
         
         // Display the main interface
@@ -1350,9 +1306,9 @@ function nav_delete_comment(){
                  <div id="poststuff">
                     <div id="post-body" class="metabox-holder columns-2">
                        <div id="post-body-content">
-                          <form action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" id="nav-delete-comments-form">
+                          <form action="<?php echo esc_url( admin_url('admin.php?page=delete_comment&tab=delete') ); ?>" method="post" id="nav-delete-comments-form">
                               <input type="hidden" name="action" value="nav_delete_comments_ajax">
-                              <input type="hidden" name="nav@final_delete" value="<?php echo wp_create_nonce('nav@final_delete'); ?>">
+                              <input type="hidden" name="nav@final_delete" value="<?php echo esc_attr( wp_create_nonce('nav@final_delete') ); ?>">
                              <div class="nav-comments-section">
                                 <div class="nav-comments-header">
                                     <h3>Delete Comments</h3>
@@ -1362,8 +1318,7 @@ function nav_delete_comment(){
                                         <span class="nav-notice-icon">⚠️</span>
                                         <div class="nav-notice-content">
                                             <div class="nav-notice-title"><?php esc_html_e( 'Warning: Irreversible Action (Deleted comments cannot be recovered. Please make sure to export your comments before deletion if needed.)', NAV_DELETE_COMMENTS_TEXT_DOMAIN ); ?></div>
-                                            <p class="nav-notice-text">  <?php if (!$is_premium): ?> <?php esc_html_e( 'You can delete up to 500 comments.', NAV_DELETE_COMMENTS_TEXT_DOMAIN ); ?> <strong><?php echo (int) $remaining_comments; ?></strong> <?php esc_html_e( 'comments remaining in your free plan.', NAV_DELETE_COMMENTS_TEXT_DOMAIN ); ?>
-                             <a href="<?php echo nonu_fs()->get_upgrade_url(); ?>" class="button button-primary" style="margin-left: 10px;"><?php esc_html_e( 'Upgrade to Premium', NAV_DELETE_COMMENTS_TEXT_DOMAIN ); ?></a>   <?php endif; ?> </p>
+                                            <p class="nav-notice-text"><?php esc_html_e( 'Deleted comments cannot be recovered.', NAV_DELETE_COMMENTS_TEXT_DOMAIN ); ?></p>
                                         </div>
                                     </div>
 									
@@ -1428,11 +1383,11 @@ function nav_delete_comment(){
                                         <div class="nav-date-inputs">
                                             <div class="nav-date-input-group">
                                                 <label>From Date</label>
-                                                <input type="date" name="nav_delete_commentfrom" value="<?php echo esc_attr($date_from); ?>" <?php if (!nonu_fs()->is_paying()) echo 'disabled'; ?>>
+                                                <input type="date" name="nav_delete_commentfrom" value="<?php echo esc_attr($date_from); ?>">
                                             </div>
                                             <div class="nav-date-input-group">
                                                 <label><?php esc_html_e( 'To Date', NAV_DELETE_COMMENTS_TEXT_DOMAIN ); ?></label>
-                                                <input type="date" name="nav_delete_commentto" value="<?php echo esc_attr($date_to); ?>" <?php if (!nonu_fs()->is_paying()) echo 'disabled'; ?>>
+                                                <input type="date" name="nav_delete_commentto" value="<?php echo esc_attr($date_to); ?>">
                                             </div>
                                         </div>
                                         <?php if (!empty($date_errors)): ?>
@@ -1445,12 +1400,6 @@ function nav_delete_comment(){
                                             </ul>
                                         </div>
                                         <?php endif; ?>
-                                        <?php if (!nonu_fs()->is_paying()): ?>
-                                        <div class="nav-date-premium">
-                                            <span><?php esc_html_e( 'Date range filtering is available in the premium plan', NAV_DELETE_COMMENTS_TEXT_DOMAIN ); ?></span>
-                                            <a href="<?php echo nonu_fs()->get_upgrade_url(); ?>" class="button button-primary"><?php esc_html_e( 'Upgrade', NAV_DELETE_COMMENTS_TEXT_DOMAIN ); ?></a>
-                                        </div>
-                                        <?php endif; ?>
                                     </div>
 
                                     <div class="nav-submit-button">
@@ -1459,15 +1408,9 @@ function nav_delete_comment(){
                                             <button type="submit" class="button button-primary" style="background: var(--nav-danger); border-color: var(--nav-danger);">
                                                 <?php esc_html_e( 'Delete Selected Comments', NAV_DELETE_COMMENTS_TEXT_DOMAIN ); ?>
                                             </button>
-											 <?php if (nonu_fs()->is_paying()): ?>
 											<button type="button" id="nav-export-comments" class="button button-secondary" title="<?php esc_attr_e( 'Export your comments as CSV', NAV_DELETE_COMMENTS_TEXT_DOMAIN ); ?>">
 												<?php esc_html_e( 'Export Comments', NAV_DELETE_COMMENTS_TEXT_DOMAIN ); ?>
 											</button>
-										<?php else: ?>
-											<button type="button" class="button button-secondary" disabled title="<?php esc_attr_e( 'Available in Premium version', NAV_DELETE_COMMENTS_TEXT_DOMAIN ); ?>">
-												<?php esc_html_e( 'Export Comments (Premium)', NAV_DELETE_COMMENTS_TEXT_DOMAIN ); ?>
-											</button>
-										<?php endif; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -1496,19 +1439,14 @@ function nav_delete_comment(){
 										<?php esc_html_e( '(After scheduling, if the "Next Cleanup Date" is not visible, please perform a hard refresh: Ctrl + Shift + R on Windows or Cmd + R on Mac.)', NAV_DELETE_COMMENTS_TEXT_DOMAIN ); ?>
 									  </small>
 									</label>
-                                        <select name="nav_auto_delete_spam" id="nav_auto_delete_spam" class="nav-form-select" <?php if (!$is_premium) echo 'disabled'; ?>>
+                                        <select name="nav_auto_delete_spam" id="nav_auto_delete_spam" class="nav-form-select">
                                             <option value="disabled" <?php selected(get_option('nav_auto_delete_spam'), 'disabled'); ?>><?php esc_html_e( 'Disabled', NAV_DELETE_COMMENTS_TEXT_DOMAIN ); ?></option>
                                             <option value="daily" <?php selected(get_option('nav_auto_delete_spam'), 'daily'); ?>><?php esc_html_e( 'Daily', NAV_DELETE_COMMENTS_TEXT_DOMAIN ); ?></option>
                                             <option value="weekly" <?php selected(get_option('nav_auto_delete_spam'), 'weekly'); ?>><?php esc_html_e( 'Weekly', NAV_DELETE_COMMENTS_TEXT_DOMAIN ); ?></option>
                                             <option value="monthly" <?php selected(get_option('nav_auto_delete_spam'), 'monthly'); ?>><?php esc_html_e( 'Monthly', NAV_DELETE_COMMENTS_TEXT_DOMAIN ); ?></option>
                                         </select>
-                                        <?php if ($is_premium): ?>
                                         <button type="submit" name="nav_schedule_cleanup" class="button button-primary"><?php esc_html_e( 'Schedule Now', NAV_DELETE_COMMENTS_TEXT_DOMAIN ); ?></button>
                                         <button type="submit" name="nav_cancel_cleanup" class="button button-secondary"><?php esc_html_e( 'Cancel Schedule', NAV_DELETE_COMMENTS_TEXT_DOMAIN ); ?></button>
-                                        <?php else: ?>
-                                        <button type="button" class="button button-primary" disabled><?php esc_html_e( 'Schedule Now', NAV_DELETE_COMMENTS_TEXT_DOMAIN ); ?></button>
-                                        <button type="button" class="button button-secondary" disabled><?php esc_html_e( 'Cancel Schedule', NAV_DELETE_COMMENTS_TEXT_DOMAIN ); ?></button>
-                                        <?php endif; ?>
                                     </div>
 
                                     <div class="nav-stats-grid">
@@ -1517,7 +1455,7 @@ function nav_delete_comment(){
                                             <div class="nav-stat-value">
                                                 <?php 
                                                 $last_cleanup = get_option('nav_last_spam_cleanup');
-                                                echo $last_cleanup ? date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime($last_cleanup) ) : esc_html__( 'Never', NAV_DELETE_COMMENTS_TEXT_DOMAIN );
+                                                echo $last_cleanup ? esc_html( date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime($last_cleanup) ) ) : esc_html__( 'Never', NAV_DELETE_COMMENTS_TEXT_DOMAIN );
                                                 ?>
                                             </div>
                                         </div>
@@ -1528,7 +1466,7 @@ function nav_delete_comment(){
                                                 $schedule = get_option('nav_auto_delete_spam');
                                                 if ($schedule && $schedule !== 'disabled') {
                                                     $next_run = wp_next_scheduled('nav_auto_delete_spam_event');
-                                                    echo $next_run ? date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $next_run ) : esc_html__( 'Not scheduled', NAV_DELETE_COMMENTS_TEXT_DOMAIN );
+                                                    echo $next_run ? esc_html( date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $next_run ) ) : esc_html__( 'Not scheduled', NAV_DELETE_COMMENTS_TEXT_DOMAIN );
                                                 } else {
                                                     echo esc_html__( 'Not scheduled', NAV_DELETE_COMMENTS_TEXT_DOMAIN );
                                                 }
@@ -1589,7 +1527,7 @@ function nav_delete_comment(){
         </ul>
 
         <div style="text-align: center;">
-            <a href="<?php echo nonu_fs()->get_upgrade_url(); ?>" class="button button-primary" style="font-size: 12px; padding: 8px 25px; background-color: #2271b1; border-color: #2271b1; width: 100%;">
+            <a href="<?php echo esc_url( nonu_fs()->get_upgrade_url() ); ?>" class="button button-primary" style="font-size: 12px; padding: 8px 25px; background-color: #2271b1; border-color: #2271b1; width: 100%;">
                 <?php esc_html_e( 'Upgrade Now - Get Premium Access', NAV_DELETE_COMMENTS_TEXT_DOMAIN ); ?>
             </a>
             <p style="color: #666; font-size: 12px; margin-top: 10px; text-align: center;">
@@ -1812,7 +1750,11 @@ add_action('nav_auto_delete_spam_event', 'nav_auto_delete_spam_comments');
 
 // Update the handle_auto_delete_settings function
 function nav_handle_auto_delete_settings() {
-    if (isset($_POST['nav_auto_delete_spam']) && nonu_fs()->is_paying()) {
+    if (isset($_POST['nav_auto_delete_spam'])) {
+        if ( ! current_user_can( 'manage_options' ) ) {
+            return;
+        }
+
         check_admin_referer('nav_auto_delete_settings', 'nav_auto_delete_nonce');
         
         if (isset($_POST['nav_cancel_cleanup'])) {
@@ -1824,7 +1766,7 @@ function nav_handle_auto_delete_settings() {
             });
         } else {
             // Update schedule
-            $schedule = sanitize_text_field($_POST['nav_auto_delete_spam']);
+        $schedule = sanitize_text_field( wp_unslash( $_POST['nav_auto_delete_spam'] ) );
             update_option('nav_auto_delete_spam', $schedule);
             
             // Clear existing schedule
@@ -1871,7 +1813,7 @@ function nav_handle_import_ajax() {
     }
 
     // Verify nonce
-    if (!isset($_POST['_ajax_nonce']) || !wp_verify_nonce($_POST['_ajax_nonce'], 'nav_comments_import_nonce')) {
+    if (!isset($_POST['_ajax_nonce']) || !wp_verify_nonce(sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) ), 'nav_comments_import_nonce')) {
         wp_send_json_error(array(
             'message' => 'Security check failed. Please refresh the page and try again.'
         ));
@@ -1879,11 +1821,6 @@ function nav_handle_import_ajax() {
     }
 
     try {
-        // Check if user is premium
-        if (!nonu_fs()->is_paying()) {
-            throw new Exception( __( 'Import feature is only available in the premium version', NAV_DELETE_COMMENTS_TEXT_DOMAIN ) );
-        }
-
         // Check if file was uploaded
         if (!isset($_FILES['import_file'])) {
             throw new Exception('No file was uploaded');
@@ -2024,13 +1961,8 @@ function nav_handle_import_ajax() {
 function nav_handle_export_ajax() {
     try {
         // Verify nonce
-        if (!isset($_POST['_ajax_nonce']) || !wp_verify_nonce($_POST['_ajax_nonce'], 'nav_comments_export_nonce')) {
+        if (!isset($_POST['_ajax_nonce']) || !wp_verify_nonce(sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) ), 'nav_comments_export_nonce')) {
             throw new Exception( __( 'Security check failed', NAV_DELETE_COMMENTS_TEXT_DOMAIN ) );
-        }
-
-        // Check if user is premium
-        if (!nonu_fs()->is_paying()) {
-            throw new Exception( __( 'Export feature is only available in the premium version', NAV_DELETE_COMMENTS_TEXT_DOMAIN ) );
         }
 
         // Get parameters

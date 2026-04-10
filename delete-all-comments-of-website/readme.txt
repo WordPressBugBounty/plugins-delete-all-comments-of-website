@@ -1,37 +1,31 @@
-=== WP Comment Cleaner – Delete All Comments, Disable Comments, Bulk Delete & Remove Comments ===
+=== Website Comment Cleaner – Delete All Comments, Disable Comments, Bulk Delete & Remove Comments ===
 Contributors: royalnavneet
 Tags: delete comments, disable comments, bulk delete, remove comments, delete all comments
 Requires at least: 5.0
 Tested up to: 6.9
 Requires PHP: 7.2
-Stable tag: 6.8
+Stable tag: 7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Delete comments, disable comments, and remove comments in one click. Bulk delete spam and all comments to optimize your WordPress database easily.
+Delete, export, import, and manage WordPress comments with bulk tools and comment-control settings.
 
 == Description ==
 
-**WP Comment Cleaner** is the most powerful, lightweight, and user-friendly tool to **remove comments** and **disable comments** globally on your WordPress site. If your database is bloated with thousands of spam entries or you simply want to start fresh, our plugin provides a safe and instant way to **delete all comments** without any technical hassle.
+* Website Comment Cleaner – Delete All Comments, Disable Comments, Bulk Delete & Remove Comments** helps you delete, export, import, and disable comments on your WordPress site using an admin dashboard with bulk actions and filters.
 
-Is your site slow? A cluttered database is often the cause. By using our **bulk delete** features, you can significantly reduce database size, leading to faster page loads and better SEO rankings for your own website.
+This plugin supports:
+* Deleting comments by status (approved, pending, spam, trash, or all).
+* Optional date-range filtering when bulk deleting.
+* Exporting comments to CSV and importing comments from CSV.
+* Disabling comments globally or by selected post types.
+* Role-based exclusions and scheduled spam cleanup.
 
-### 🚀 Why Thousands of Users Choose WP Comment Cleaner:
-* **Total Control:** Choose to **remove comments** by status—Approved, Pending, Spam, or Trash.
-* **Stop Spam Forever:** Use the **disable comments** feature to turn off discussions site-wide or on specific post types like Posts, Pages, and Attachments.
-* **Database Optimization:** A single click to **bulk delete** thousands of entries, cleaning up your `wp_comments` and `wp_commentmeta` tables.
-* **Smart Filtering:** Use our date-based filter to **delete all comments** older than a specific date while keeping your newest interactions alive.
-* **User-Friendly Interface:** No complex settings. We offer a clean, intuitive dashboard designed for both beginners and developers.
-
-Whether you are a store owner dealing with WooCommerce product comment spam or a blogger looking to **remove comments** from old archived posts, this plugin is built to handle the job with speed and security.
-
-== 💎 Premium Features for Advanced Users ==
-
-While the free version is powerful enough to **delete all comments**, our Premium version offers automation for professionals:
-* **Export to CSV:** The safest way to **remove comments**—export them first for your records.
-* **Scheduled Cleanup:** Set a schedule (Daily, Weekly, Monthly) to **bulk delete** spam automatically.
-* **Role-Based Exclusions:** **Disable comments** for everyone except specific users like Authors or Editors.
-* **Developer Priority Support:** Get expert help whenever you need it.
+== Features ==
+* Export comments to CSV from the plugin dashboard.
+* Import comments from CSV.
+* Schedule automatic spam cleanup (daily, weekly, monthly).
+* Configure role-based exclusions and post-type comment settings.
 
 == Installation ==
 
@@ -56,7 +50,7 @@ Our plugin is optimized for performance. When you perform a **bulk delete**, the
 No. The **disable comments** feature prevents new comments from being posted on your site. To get rid of existing ones, you should use the **delete all comments** tool within the plugin.
 
 = Is it possible to undo a "Delete All Comments" action? =
-Once you **remove comments**, they are permanently deleted from the database. We highly recommend using our **Premium Export feature** to save a CSV backup before performing a total cleanup.
+Once you **remove comments**, they are permanently deleted from the database. We recommend exporting a CSV backup before performing a total cleanup.
 
 = Can I delete comments older than a certain year? =
 Yes! Our **Smart Date Filtering** allows you to select a specific date range. This is perfect for users who want to **remove comments** from 2025 or older while keeping 2026 discussions active.
@@ -75,6 +69,17 @@ Yes! It can **remove comments** and reviews from WooCommerce product pages effec
 4. Premium Features: Scheduled cleanup and CSV export options.
 
 == Changelog ==
+
+= 7.0 =
+* Removed locally gated feature restrictions to align with WordPress.org guidelines.
+* Replaced remote CDN assets with bundled local assets.
+* Hardened nonce handling and output escaping in admin and AJAX flows.
+* Added direct file access protection to the main plugin file.
+
+= 6.9 =
+* Security fix: removed unsafe direct delete trigger from `admin_menu`.
+* Added defense-in-depth capability and nonce validation in bulk delete routine.
+* Hardened admin settings save flow with explicit capability verification.
 
 = 6.2 =
 * Added official plugin logo for better branding.
