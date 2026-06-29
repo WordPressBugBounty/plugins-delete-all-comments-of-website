@@ -1,43 +1,4 @@
 jQuery(document).ready(function($) {
-    // Compatibility shim: support SweetAlert v1 locally without remote SweetAlert2.
-    if (typeof window.Swal === "undefined") {
-        window.Swal = {
-            fire: function(options) {
-                return new Promise(function(resolve) {
-                    var title = (options && options.title) ? options.title + "\n\n" : "";
-                    var text = (options && options.text) ? options.text : "";
-                    var useConfirm = options && options.showCancelButton;
-                    var ok = useConfirm ? window.confirm(title + text) : (window.alert(title + text), true);
-                    if (!ok) {
-                        resolve({ isConfirmed: false, value: null });
-                        return;
-                    }
-
-                    // Emulate SweetAlert2 preConfirm flow used by delete/export actions.
-                    if (options && typeof options.preConfirm === "function") {
-                        Promise.resolve(options.preConfirm())
-                            .then(function(value) {
-                                resolve({ isConfirmed: true, value: value });
-                            })
-                            .catch(function(error) {
-                                window.alert((error && error.message) ? error.message : String(error));
-                                resolve({ isConfirmed: false, value: null });
-                            });
-                        return;
-                    }
-
-                    resolve({ isConfirmed: true, value: {} });
-                });
-            },
-            showValidationMessage: function(message) {
-                window.alert(message);
-            },
-            isLoading: function() {
-                return false;
-            }
-        };
-    }
-
     // Handle form submission
     $("#nav-disable-comments-form").on("submit", function(e) {
 		
@@ -50,7 +11,7 @@ jQuery(document).ready(function($) {
         // Show loading state
         var submitButton = form.find('button[type="submit"]');
         var originalText = submitButton.html();
-        submitButton.prop('disabled', true).html('<span class="spinner is-active"></span> ' + (navCommentsSettings.strings && navCommentsSettings.strings.saving ? navCommentsSettings.strings.saving : 'Saving...'));
+        submitButton.prop('disabled', true).html('<span class="spinner is-active"></span> Saving...');
         
         $.ajax({
             url: navCommentsSettings.ajaxurl,
@@ -61,8 +22,8 @@ jQuery(document).ready(function($) {
             success: function(response) {
                 if (response.success) {
                     Swal.fire({
-                        title: (navCommentsSettings.strings && navCommentsSettings.strings.success) ? navCommentsSettings.strings.success : "Success!",
-                        text: response.data.message || (navCommentsSettings.strings && navCommentsSettings.strings.settings_saved ? navCommentsSettings.strings.settings_saved : "Settings have been saved successfully."),
+                        title: "Success!",
+                        text: response.data.message || "Settings have been saved successfully.",
                         icon: "success",
                         confirmButtonColor: "#22c55e"
                     }).then(() => {
@@ -85,8 +46,8 @@ jQuery(document).ready(function($) {
                     });
                 } else {
                     Swal.fire({
-                        title: (navCommentsSettings.strings && navCommentsSettings.strings.error) ? navCommentsSettings.strings.error : "Error!",
-                        text: response.data.message || (navCommentsSettings.strings && navCommentsSettings.strings.failed_save ? navCommentsSettings.strings.failed_save : "Failed to save settings."),
+                        title: "Error!",
+                        text: response.data.message || "Failed to save settings.",
                         icon: "error",
                         confirmButtonColor: "#ef4444"
                     });
@@ -94,8 +55,8 @@ jQuery(document).ready(function($) {
             },
             error: function(xhr, status, error) {
                 Swal.fire({
-                    title: (navCommentsSettings.strings && navCommentsSettings.strings.error) ? navCommentsSettings.strings.error : "Error!",
-                    text: (navCommentsSettings.strings && navCommentsSettings.strings.error_saving ? navCommentsSettings.strings.error_saving : "An error occurred while saving settings: ") + error,
+                    title: "Error!",
+                    text: "An error occurred while saving settings: " + error,
                     icon: "error",
                     confirmButtonColor: "#ef4444"
                 });
@@ -147,12 +108,12 @@ jQuery(document).ready(function($) {
     // Handle reset button click
     $("#nav-reset-settings").on("click", function() {
         Swal.fire({
-            title: (navCommentsSettings.strings && navCommentsSettings.strings.reset_confirm_title) ? navCommentsSettings.strings.reset_confirm_title : "Reset Settings?",
-            text: (navCommentsSettings.strings && navCommentsSettings.strings.reset_confirm_text) ? navCommentsSettings.strings.reset_confirm_text : "Are you sure you want to reset all comment settings? This will enable comments everywhere and remove all restrictions.",
+            title: "Reset Settings?",
+            text: "Are you sure you want to reset all comment settings? This will enable comments everywhere and remove all restrictions.",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonText: (navCommentsSettings.strings && navCommentsSettings.strings.yes_reset) ? navCommentsSettings.strings.yes_reset : "Yes, reset settings",
-            cancelButtonText: (navCommentsSettings.strings && navCommentsSettings.strings.no_cancel) ? navCommentsSettings.strings.no_cancel : "No, cancel",
+            confirmButtonText: "Yes, reset settings",
+            cancelButtonText: "No, cancel",
             confirmButtonColor: "#dc2626",
             cancelButtonColor: "#64748b",
             showLoaderOnConfirm: true,
@@ -168,7 +129,7 @@ jQuery(document).ready(function($) {
                     if (response.success) {
                         return response.data;
                     }
-                    throw new Error(response.data?.message || (navCommentsSettings.strings && navCommentsSettings.strings.failed_reset ? navCommentsSettings.strings.failed_reset : "Failed to reset settings"));
+                    throw new Error(response.data?.message || "Failed to reset settings");
                 }).catch(function(error) {
                     Swal.showValidationMessage("Request failed: ${error.message || error}");
                 });
@@ -176,10 +137,10 @@ jQuery(document).ready(function($) {
             allowOutsideClick: () => !Swal.isLoading()
         }).then((result) => {
             if (result.isConfirmed) {
-Swal.fire({
-                        title: (navCommentsSettings.strings && navCommentsSettings.strings.success) ? navCommentsSettings.strings.success : "Success!",
-                        text: result.value?.message || (navCommentsSettings.strings && navCommentsSettings.strings.settings_reset ? navCommentsSettings.strings.settings_reset : "Settings have been reset successfully."),
-                        icon: "success",
+                Swal.fire({
+                    title: "Success!",
+                    text: result.value?.message || "Settings have been reset successfully.",
+                    icon: "success",
                     confirmButtonColor: "#22c55e"
                 }).then(() => {
                     window.location.reload();
@@ -274,7 +235,7 @@ if (commentCount === 0) {
             showLoaderOnConfirm: true,
             preConfirm: () => {
                 return $.ajax({
-                    url: navCommentsSettings.ajaxurl,
+                    url: form.attr("action"),
                     type: "POST",
                     data: form.serialize(),
                     processData: true,
