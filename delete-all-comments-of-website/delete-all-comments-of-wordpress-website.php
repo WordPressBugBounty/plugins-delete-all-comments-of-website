@@ -4,7 +4,7 @@
     Plugin URI: http://www.navneetsoni.com/plugins/delete-comments
     Description: A complete WordPress comment management plugin to delete comments, disable comments, bulk delete comments, remove comments, and delete all comments in one click. Easily manage approved, pending, spam, or trashed comments. Disable comments globally or by post type, apply role-based exclusions, export comments, and automate spam cleanup with scheduled deletion.
     Author: royalnavneet
-    Version: 7.1
+    Version: 7.2
     Author URI: http://www.navneetsoni.com 
     */
 	
@@ -53,7 +53,6 @@ add_action( 'admin_enqueue_scripts', 'my_admin_scripts_nav' );
 
 
 
-add_action( 'admin_menu', 'nav_delete_all_comment' );
 define( 'NAV_COMENT_PLUGIN_URI', plugin_dir_url( __FILE__ ) );
 
 // Create WordPress admin menu
@@ -113,17 +112,15 @@ function nav_ajax_save_comment_settings() {
         return;
     }
 
-    // Verify nonce
-    if (!isset($_POST['_wpnonce']) || !wp_verify_nonce($_POST['_wpnonce'], 'nav_comments_settings_nonce')) {
-        wp_send_json_error(array(
-            'message' => 'Security check failed. Please refresh the page and try again.'
-        ));
+    if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'nav_comments_settings_nonce' ) ) {
+        wp_send_json_error( array(
+            'message' => 'Security check failed. Please refresh the page and try again.',
+        ) );
         return;
     }
 
     try {
-        // Save disable type
-        $disable_type = isset($_POST['nav_disable_type']) ? sanitize_text_field($_POST['nav_disable_type']) : 'everywhere';
+        $disable_type = isset( $_POST['nav_disable_type'] ) ? sanitize_text_field( wp_unslash( $_POST['nav_disable_type'] ) ) : 'everywhere';
         update_option('nav_disable_comments_type', $disable_type);
 
         // Save post type settings
@@ -198,16 +195,15 @@ function nav_ajax_reset_comment_settings() {
         return;
     }
 
-    // Verify nonce
-    if (!isset($_POST['_wpnonce']) || !wp_verify_nonce($_POST['_wpnonce'], 'nav_comments_settings_nonce')) {
-        wp_send_json_error(array(
-            'message' => 'Security check failed. Please refresh the page and try again.'
-        ));
+    if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'nav_comments_settings_nonce' ) ) {
+        wp_send_json_error( array(
+            'message' => 'Security check failed. Please refresh the page and try again.',
+        ) );
         return;
     }
 
     try {
-        if (nav_reset_comment_settings()) {
+        if ( nav_reset_comment_settings() ) {
             wp_send_json_success(array(
                 'message' => 'All comment settings have been reset successfully.'
             ));
@@ -715,10 +711,25 @@ add_filter('pings_open', 'nav_disable_comments', 20, 2);
 if( !function_exists("nav_delete_all_comment") )
 {
 function nav_delete_all_comment() {
+    if ( ! current_user_can( 'manage_options' ) ) {
+        return 0;
+    }
+
     global $wpdb;
 
     $count = 0;
-    $favcolor_nav = isset($_POST['nav_delete_comment']) ? $_POST['nav_delete_comment'] : '';
+    $favcolor_nav = isset( $_POST['nav_delete_comment'] ) ? sanitize_text_field( wp_unslash( $_POST['nav_delete_comment'] ) ) : '';
+    $allowed_actions = array(
+        'nav_delete_all',
+        'nav_delete_moderation',
+        'nav_delete_approved',
+        'nav_delete_spam',
+        'nav_delete_trash',
+    );
+    if ( ! in_array( $favcolor_nav, $allowed_actions, true ) ) {
+        return 0;
+    }
+
     $date_filter = '';
 
     // Apply date range only for paid users
@@ -1156,46 +1167,42 @@ add_action('wp_ajax_nav_delete_comments_ajax', 'nav_handle_delete_ajax');
 
 // Add AJAX handler for delete action
 function nav_handle_delete_ajax() {
-    
-    if (!nonu_fs()->is_paying() && !nav_can_delete_more_comments()) {
-    wp_send_json_error(array(
-        'message' => 'Free plan limit reached. You can only delete up to 500 comments. Upgrade to Premium for unlimited access.'
-    ));
-    return;
-    }
-    
-    
-    // Check if user has proper permissions
-    if (!current_user_can('manage_options')) {
-        wp_send_json_error(array(
-            'message' => 'You do not have sufficient permissions to perform this action.'
-        ));
+    if ( ! current_user_can( 'manage_options' ) ) {
+        wp_send_json_error( array(
+            'message' => 'You do not have sufficient permissions to perform this action.',
+        ) );
         return;
     }
 
-    // Verify nonce
-    if (!isset($_POST['nav@final_delete']) || !wp_verify_nonce($_POST['nav@final_delete'], 'nav@final_delete')) {
+    if ( ! isset( $_POST['nav@final_delete'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nav@final_delete'] ) ), 'nav@final_delete' ) ) {
         wp_send_json_error(array(
             'message' => 'Security check failed. Please refresh the page and try again.'
         ));
         return;
     }
 
+    if ( ! nonu_fs()->is_paying() && ! nav_can_delete_more_comments() ) {
+        wp_send_json_error( array(
+            'message' => 'Free plan limit reached. You can only delete up to 500 comments. Upgrade to Premium for unlimited access.',
+        ) );
+        return;
+    }
+
     try {
         $count = nav_delete_all_comment();
-        if ($count > 0) {
-            wp_send_json_success(array(
-                'message' => sprintf('Successfully deleted %d comments.', $count)
-            ));
+        if ( $count > 0 ) {
+            wp_send_json_success( array(
+                'message' => sprintf( 'Successfully deleted %d comments.', $count ),
+            ) );
         } else {
-            wp_send_json_error(array(
-                'message' => 'No comments were deleted.'
-            ));
+            wp_send_json_error( array(
+                'message' => 'No comments were deleted.',
+            ) );
         }
-    } catch (Exception $e) {
-        wp_send_json_error(array(
-            'message' => 'An error occurred while deleting comments: ' . $e->getMessage()
-        ));
+    } catch ( Exception $e ) {
+        wp_send_json_error( array(
+            'message' => 'An error occurred while deleting comments: ' . $e->getMessage(),
+        ) );
     }
 }
 
@@ -1709,8 +1716,8 @@ add_action('nav_auto_delete_spam_event', 'nav_auto_delete_spam_comments');
 
 // Update the handle_auto_delete_settings function
 function nav_handle_auto_delete_settings() {
-    if (isset($_POST['nav_auto_delete_spam']) && nonu_fs()->is_paying()) {
-        check_admin_referer('nav_auto_delete_settings', 'nav_auto_delete_nonce');
+    if ( isset( $_POST['nav_auto_delete_spam'] ) && nonu_fs()->is_paying() && current_user_can( 'manage_options' ) ) {
+        check_admin_referer( 'nav_auto_delete_settings', 'nav_auto_delete_nonce' );
         
         if (isset($_POST['nav_cancel_cleanup'])) {
             // Cancel the schedule
@@ -1918,14 +1925,16 @@ function nav_handle_import_ajax() {
 // Add AJAX handler for export
 function nav_handle_export_ajax() {
     try {
-        // Verify nonce
-        if (!isset($_POST['_ajax_nonce']) || !wp_verify_nonce($_POST['_ajax_nonce'], 'nav_comments_export_nonce')) {
-            throw new Exception('Security check failed');
+        if ( ! current_user_can( 'manage_options' ) ) {
+            throw new Exception( 'You do not have sufficient permissions to perform this action.' );
         }
 
-        // Check if user is premium
-        if (!nonu_fs()->is_paying()) {
-            throw new Exception('Export feature is only available in the premium version');
+        if ( ! isset( $_POST['_ajax_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) ), 'nav_comments_export_nonce' ) ) {
+            throw new Exception( 'Security check failed' );
+        }
+
+        if ( ! nonu_fs()->is_paying() ) {
+            throw new Exception( 'Export feature is only available in the premium version' );
         }
 
         // Get parameters

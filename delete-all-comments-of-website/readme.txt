@@ -2,8 +2,8 @@
 Contributors: royalnavneet  
 Tags: delete comments, disable comments, bulk delete comments, remove comments, delete all comments  
 Requires at least: 5.0  
-Tested up to: 7.0  
-Stable tag: 7.1
+Tested up to: 7.2  
+Stable tag: 7.2
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -79,6 +79,11 @@ The premium version offers scheduled cleanup for spam comments. You can choose d
 
 == Changelog ==
 
+= 7.2 =
+* Security: Fixed broken access control that could allow unauthorized comment deletion during admin requests.
+* Security: Require administrator capability for comment export and spam cleanup scheduling AJAX handlers.
+* Hardened comment deletion with capability checks and validated delete action types.
+
 = 6.1 =  
 * Improved UI for better usability  
 * Optimized plugin name and tag visibility  
@@ -110,6 +115,9 @@ The premium version offers scheduled cleanup for spam comments. You can choose d
 * Minor fixes  
 
 == Upgrade Notice ==
+
+= 7.2 =
+Security release. Update immediately to fix a broken access control issue that could allow unauthorized comment deletion.
 
 = 6.1 =  
 This update includes new title branding, optimized UI, and stronger filtering support. Highly recommended for better plugin visibility and performance.
