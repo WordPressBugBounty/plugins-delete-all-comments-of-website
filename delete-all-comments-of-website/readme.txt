@@ -2,8 +2,8 @@
 Contributors: royalnavneet  
 Tags: delete comments, disable comments, bulk delete comments, remove comments, delete all comments  
 Requires at least: 5.0  
-Tested up to: 7.2  
-Stable tag: 7.2
+Tested up to: 7.1.3  
+Stable tag: 7.3
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -78,6 +78,9 @@ The premium version offers scheduled cleanup for spam comments. You can choose d
 6. Role exclusion configuration  
 
 == Changelog ==
+
+= 7.3 =
+* SDK update
 
 = 7.2 =
 * Security: Fixed broken access control that could allow unauthorized comment deletion during admin requests.
